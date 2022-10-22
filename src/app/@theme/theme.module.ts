@@ -27,7 +27,7 @@ import {
   PluralPipe,
   RoundPipe,
   TimingPipe,
-  NumberWithCommasPipe,
+  NumberWithCommasPipe, SafePipe,
 } from './pipes';
 import {
   OneColumnLayoutComponent,
@@ -68,6 +68,7 @@ const PIPES = [
   RoundPipe,
   TimingPipe,
   NumberWithCommasPipe,
+  SafePipe,
 ];
 
 @NgModule({
