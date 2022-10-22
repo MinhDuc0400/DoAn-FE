@@ -1,0 +1,24 @@
+<nb-card style="width: 35vw">
+  <nb-card-header>{{ title }}</nb-card-header>
+  <nb-card-body>
+    <nb-user
+      [name]="'Duc Nguyen'"
+      [title]="'Landlord'"
+      style="padding-bottom: 1rem"
+    ></nb-user>
+    <textarea rows="5" nbInput fullWidth shape="rectangle" placeholder="Write something..."></textarea>
+    <ng-container
+      *ngFor="let image of imageListToDisplay"
+    >
+      <img
+        *ngIf="image | safe: 'url' as imgSrc"
+        class="post-image"
+        [src]="imgSrc"
+        alt=""/>
+    </ng-container>
+    <input nbInput fullWidth type="file" accept="image/*" (change)="onImageFileSelect($event)"/>
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton hero fullWidth status="primary" (click)="dismiss()">Create</button>
+  </nb-card-footer>
+</nb-card>

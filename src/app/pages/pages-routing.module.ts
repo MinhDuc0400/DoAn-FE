@@ -19,6 +19,16 @@ const routes: Routes = [{
       component: DashboardComponent,
     },
     {
+      path: 'post',
+      loadChildren: () => import('./post-list/post-list.module')
+        .then(m => m.PostListModule),
+    },
+    {
+      path: 'conversation',
+      loadChildren: () => import('./conversation-list/conversation-list.module')
+        .then(m => m.ConversationListModule),
+    },
+    {
       path: 'layout',
       loadChildren: () => import('./layout/layout.module')
         .then(m => m.LayoutModule),
