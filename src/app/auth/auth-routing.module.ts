@@ -28,7 +28,7 @@ export const routes: Routes = [
         component: LogoutComponent,
       },
     ],
-  }
+  },
 ];
 
 @NgModule({

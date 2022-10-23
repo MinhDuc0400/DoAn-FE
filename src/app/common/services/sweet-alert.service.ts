@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import Swal, { SweetAlertOptions, SweetAlertIcon } from 'sweetalert2';
-import { NbComponentStatus, NbGlobalPhysicalPosition, NbToastrService, } from '@nebular/theme';
+import { NbComponentStatus, NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
 
 @Injectable({
   providedIn: 'root',

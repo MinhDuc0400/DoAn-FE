@@ -4,6 +4,6 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, provideAuth(() => getAuth())]
+  imports: [CommonModule, provideAuth(() => getAuth())],
 })
 export class FirebaseAuthModule {}

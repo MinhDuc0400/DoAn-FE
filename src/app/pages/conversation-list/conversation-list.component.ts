@@ -34,14 +34,14 @@ export class ConversationListComponent implements OnInit {
       type: files.length ? 'file' : 'text',
       files: files,
       user: {
-        name: 'Jonh Doe',
+        name: 'Duc Nguyen',
         avatar: 'https://i.gifer.com/no.gif',
       },
     });
-    const botReply = this.chatService.reply(event.message);
-    if (botReply) {
-      setTimeout(() => { this.messages.push(botReply); }, 500);
-    }
+    // const botReply = this.chatService.reply(event.message);
+    // if (botReply) {
+    //   setTimeout(() => { this.messages.push(botReply); }, 500);
+    // }
   }
 
 }
