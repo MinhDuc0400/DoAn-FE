@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationService } from '../../common/services/autentication.service';
 
 @Component({
   selector: 'ngx-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   isLoading: boolean = false;
@@ -12,14 +13,19 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
+  constructor(
+    public authService: AuthenticationService,
+  ) {
+  }
+
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
-        Validators.maxLength(20)]
-      )
+        Validators.maxLength(20)],
+      ),
     });
   }
 

@@ -10,7 +10,7 @@ import {
   NbCheckboxModule,
   NbIconModule,
   NbInputModule,
-  NbSpinnerModule
+  NbSpinnerModule,
 } from '@nebular/theme';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -20,7 +20,7 @@ import { FirebaseAuthModule } from '../features/firebase/firebase-auth/firebase-
   declarations: [
     LoginComponent,
     LogoutComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +37,6 @@ import { FirebaseAuthModule } from '../features/firebase/firebase-auth/firebase-
 
     FirebaseAuthModule,
     AuthRoutingModule,
-  ]
+  ],
 })
 export class AuthModule { }

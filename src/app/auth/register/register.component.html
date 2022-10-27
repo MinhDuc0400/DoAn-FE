@@ -5,6 +5,67 @@
   [formGroup]="registerForm"
   aria-labelledby="title"
 >
+
+  <div class="form-control-group">
+    <label class="label" for="input-first-name">First Name:</label>
+    <input
+      nbInput
+      formControlName="firstName"
+      id="input-first-name"
+      name="text"
+      placeholder="First Name"
+      fullWidth
+      fieldSize="large"
+      [status]="firstName.dirty ? (firstName.invalid ? 'danger' : 'success') : 'basic'"
+      [attr.aria-invalid]="firstName.invalid && firstName.touched ? true : null"
+    />
+    <ng-container *ngIf="firstName.invalid && firstName.touched">
+      <p class="caption status-danger" *ngIf="firstName.errors?.required">
+        First Name is required!
+      </p>
+    </ng-container>
+  </div>
+
+  <div class="form-control-group">
+    <label class="label" for="input-last-name">Last Name:</label>
+    <input
+      nbInput
+      formControlName="lastName"
+      id="input-last-name"
+      name="text"
+      placeholder="Last Name"
+      fullWidth
+      fieldSize="large"
+      [status]="lastName.dirty ? (lastName.invalid ? 'danger' : 'success') : 'basic'"
+      [attr.aria-invalid]="lastName.invalid && lastName.touched ? true : null"
+    />
+    <ng-container *ngIf="lastName.invalid && lastName.touched">
+      <p class="caption status-danger" *ngIf="lastName.errors?.required">
+        Last Name is required!
+      </p>
+    </ng-container>
+  </div>
+
+  <div class="form-control-group">
+    <label class="label" for="input-user-type">Who you wanna be?</label>
+    <input
+      nbInput
+      formControlName="userType"
+      id="input-user-type"
+      name="text"
+      placeholder="User Type"
+      fullWidth
+      fieldSize="large"
+      [status]="userType.dirty ? (userType.invalid ? 'danger' : 'success') : 'basic'"
+      [attr.aria-invalid]="userType.invalid && userType.touched ? true : null"
+    />
+    <ng-container *ngIf="userType.invalid && userType.touched">
+      <p class="caption status-danger" *ngIf="userType.errors?.required">
+        User Type is required!
+      </p>
+    </ng-container>
+  </div>
+
   <div class="form-control-group">
     <label class="label" for="input-email">Email address:</label>
     <input

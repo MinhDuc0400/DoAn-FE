@@ -77,5 +77,16 @@
     Log In
   </button>
 
+
+  <button
+    #signInBtn
+    nbButton
+    fullWidth
+    status="primary"
+    size="large"
+    (click)="authService.GoogleAuth()"
+  >
+    Log in with Google
+  </button>
   <!-- <button id="fake-sign-in">Fake signin</button> -->
 </form>

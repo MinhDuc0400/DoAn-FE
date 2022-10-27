@@ -8,7 +8,7 @@ import { URL_LOGIN } from '../../common/constants/url.constant';
 @Component({
   selector: 'ngx-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
 
@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private authenticationService: AuthenticationService,
     private sweetAlert: SweetAlert,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -42,7 +42,9 @@ export class RegisterComponent implements OnInit {
 
           return rePassword === password ? null : { notMatch: true };
         }]),
-
+      firstName: new FormControl('Duc', [Validators.required]),
+      lastName: new FormControl('Nguyen', [Validators.required]),
+      userType: new FormControl('landlord', [Validators.required]),
     });
 
     this.checkAuth();
@@ -60,6 +62,18 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get('confirmPassword');
   }
 
+  get firstName() {
+    return this.registerForm.get('firstName');
+  }
+
+  get lastName() {
+    return this.registerForm.get('lastName');
+  }
+
+  get userType() {
+    return this.registerForm.get('userType');
+  }
+
   checkAuth(): void {
     const isLoggedIn = this.authenticationService.isLoggedIn();
     if (!isLoggedIn) {
@@ -70,7 +84,16 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-
+    this.authenticationService.signup(
+      this.email.value,
+      this.password.value,
+      this.confirmPassword.value,
+      this.firstName.value,
+      this.lastName.value,
+      this.userType.value,
+    ).subscribe(res => {
+      console.log(res);
+    });
   }
 
 }
