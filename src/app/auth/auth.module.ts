@@ -6,10 +6,10 @@ import { LogoutComponent } from './logout/logout.component';
 import { RegisterComponent } from './register/register.component';
 import {
   NbAlertModule,
-  NbButtonModule,
+  NbButtonModule, NbCardModule,
   NbCheckboxModule,
   NbIconModule,
-  NbInputModule,
+  NbInputModule, NbSelectModule,
   NbSpinnerModule,
 } from '@nebular/theme';
 import { RouterModule } from '@angular/router';
@@ -37,6 +37,8 @@ import { FirebaseAuthModule } from '../features/firebase/firebase-auth/firebase-
 
     FirebaseAuthModule,
     AuthRoutingModule,
+    NbCardModule,
+    NbSelectModule,
   ],
 })
 export class AuthModule { }

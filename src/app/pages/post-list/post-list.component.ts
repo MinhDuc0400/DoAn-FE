@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { fruits } from '../layout/list/fruits-list';
 import { NbDialogService } from '@nebular/theme';
 import { CreateEditPostComponent } from './create-edit-post/create-edit-post.component';
+import { PostService } from '../../common/services/post.service';
+import { Post } from '../../common/interfaces/post';
 
 @Component({
   selector: 'ngx-post-list',
@@ -9,22 +10,17 @@ import { CreateEditPostComponent } from './create-edit-post/create-edit-post.com
   styleUrls: ['./post-list.component.scss'],
 })
 export class PostListComponent implements OnInit {
-
-  fruits = fruits;
-
-  users: { name: string, title: string }[] = [
-    { name: 'Carla Espinosa', title: 'Nurse' },
-    { name: 'Bob Kelso', title: 'Doctor of Medicine' },
-    { name: 'Janitor', title: 'Janitor' },
-    { name: 'Perry Cox', title: 'Doctor of Medicine' },
-    { name: 'Ben Sullivan', title: 'Carpenter and photographer' },
-  ];
+  postList: Post[] = [];
 
   constructor(
     private dialogService: NbDialogService,
+    private postService: PostService,
   ) { }
 
   ngOnInit(): void {
+    this.postService.getAllPosts().subscribe(res => {
+      this.postList = res;
+    });
   }
 
   open() {

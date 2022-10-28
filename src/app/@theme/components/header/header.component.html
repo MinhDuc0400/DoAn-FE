@@ -20,7 +20,7 @@
 <!--    <nb-action class="control-item" icon="bell-outline"></nb-action>-->
     <nb-action class="user-action" *nbIsGranted="['view', 'user']" >
       <nb-user [nbContextMenu]="userMenu"
-               [name]="'Duc Nguyen'">
+               [name]="user?.displayName">
       </nb-user>
     </nb-action>
   </nb-actions>

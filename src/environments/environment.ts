@@ -19,7 +19,12 @@ export const environment = {
     appId: '1:1042186111084:web:2b8f4933554da7b588b049',
     measurementId: 'G-MLBYNTJ2FR',
   },
+  cloudinaryURL: 'https://api.cloudinary.com/v1_1/dfeeo5kqn/image/upload',
+  cloudinaryUploadPreset: 'lgtqjbkn',
   serverURL: 'http://127.0.0.1:3001/api/v1/', // local
   user: 'user/',
+  post: 'post/',
+  landlord: 'landlord/',
+  tenant: 'tenant/',
 };
 

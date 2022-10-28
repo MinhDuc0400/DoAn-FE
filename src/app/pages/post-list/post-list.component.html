@@ -9,14 +9,40 @@
 </div>
 <div class="row">
   <div class="col-md-12 col-lg-12 col-xxxl-12">
-    <nb-card class="list-card" *ngFor="let fruit of fruits">
+    <nb-card class="list-card" *ngFor="let post of postList">
       <nb-card-header>
         <nb-user [name]="'Duc Nguyen'" [title]="'Landlord'">
         </nb-user>
       </nb-card-header>
       <nb-card-body>
-        The room will be cleaned 6 hours before a tenant moves in. All surfaces will be sanitised with cleaners approved by global health agencies. I will provide extra cleaning supplies so a tenant can clean as they stay.
+        <h4>{{post.title}}</h4>
+        <p>{{post.description}}</p>
+        <div class="d-flex flex-wrap" *ngIf="post.images">
+          <ng-container *ngFor="let image of post.images">
+            <img width="50%" height="50%" [src]="image.url">
+          </ng-container>
+        </div>
       </nb-card-body>
+      <nb-card-footer>
+        <button
+          [style.width.%]="50"
+          nbButton
+          hero
+          size="small"
+          status="control"
+        >
+          Interested
+        </button>
+        <button
+          [style.width.%]="50"
+          nbButton
+          hero
+          size="small"
+          status="control"
+        >
+          Chat
+        </button>
+      </nb-card-footer>
     </nb-card>
   </div>
 </div>

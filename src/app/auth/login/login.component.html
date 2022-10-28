@@ -42,6 +42,7 @@
       type="password"
       id="input-password"
       placeholder="Password"
+      formControlName="password"
       fieldSize="large"
       [required]="true"
       [minLength]="6"
@@ -60,10 +61,12 @@
     </ng-container>
   </div>
 
-  <div class="form-control-group accept-group">
-    <nb-checkbox name="rememberMe"
-    >Remember me</nb-checkbox
-    >
+  <div class="form-control-group accept-group row justify-content-between align-items-center">
+    <nb-checkbox
+      name="rememberMe"
+      formControlName="rememberMe"
+    >Remember me</nb-checkbox>
+    <a [routerLink]="[URL_REGISTER]">Register</a>
   </div>
 
   <button
@@ -73,6 +76,7 @@
     fullWidth
     status="primary"
     size="large"
+    (click)="login()"
   >
     Log In
   </button>
@@ -80,10 +84,11 @@
 
   <button
     #signInBtn
+    [style.margin-top.px]="20"
     nbButton
     fullWidth
-    status="primary"
-    size="large"
+    status="basic"
+    size="small"
     (click)="authService.GoogleAuth()"
   >
     Log in with Google

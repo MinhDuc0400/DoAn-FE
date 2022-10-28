@@ -1,4 +1,4 @@
-<nb-card style="width: 35vw">
+<nb-card style="width: 35vw" [formGroup]="postForm">
   <nb-card-header>{{ title }}</nb-card-header>
   <nb-card-body>
     <nb-user
@@ -6,7 +6,28 @@
       [title]="'Landlord'"
       style="padding-bottom: 1rem"
     ></nb-user>
-    <textarea rows="5" nbInput fullWidth shape="rectangle" placeholder="Write something..."></textarea>
+    <input
+      nbInput
+      fullWidth
+      placeholder="Title"
+      formControlName="title"
+      maxlength="60"
+    />
+    <textarea
+      rows="5"
+      nbInput
+      fullWidth
+      shape="rectangle"
+      placeholder="Write something..."
+      formControlName="description"
+      maxlength="250"
+    ></textarea>
+    <input
+      nbInput
+      fullWidth
+      placeholder="Address"
+      formControlName="address"
+    />
     <ng-container
       *ngFor="let image of imageListToDisplay"
     >
@@ -19,6 +40,12 @@
     <input nbInput fullWidth type="file" accept="image/*" (change)="onImageFileSelect($event)"/>
   </nb-card-body>
   <nb-card-footer>
-    <button nbButton hero fullWidth status="primary" (click)="dismiss()">Create</button>
+    <button
+      nbButton
+      hero
+      fullWidth
+      status="primary"
+      [disabled]="postForm.invalid"
+      (click)="submit()">Create</button>
   </nb-card-footer>
 </nb-card>

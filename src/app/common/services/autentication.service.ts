@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { User } from '../interfaces/user';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { environment } from '../../../environments/environment';
 import { ApiService } from './api.service';
+import { UserTypeEnum } from '../enum/userType.enum';
+import { RegisterRequest, RegisterResponse } from '../interfaces/auth';
+import { URL_LOGIN } from '../constants/url.constant';
 @Injectable({
   providedIn: 'root',
 })
@@ -18,9 +20,24 @@ export class AuthenticationService {
     private angularFireAuth: AngularFireAuth,
     private apiService: ApiService,
   ) {
+
+    const currentUser = localStorage.getItem('user');
+    if (currentUser) {
+      try {
+        this.user = JSON.parse(currentUser) as User;
+      } catch (e) {
+        // console.log('Error get current user from storage', e)
+      }
+    }
     this.angularFireAuth.authState.subscribe(user => {
+      console.log(user);
       this.user = user;
     });
+  }
+
+  updateLocalUser(): void {
+    console.log(this.user);
+    localStorage.setItem('user', JSON.stringify(this.user));
   }
 
   GoogleAuth() {
@@ -65,13 +82,20 @@ export class AuthenticationService {
   //   });
   // }
 
+  login(
+    email: string,
+    password: string,
+  ) {
+    return this.angularFireAuth.signInWithEmailAndPassword(email, password);
+  }
+
   signup(
     email: string,
     password: string,
     passwordConfirm: string,
     firstName: string,
     lastName: string,
-    userType: string,
+    userType: UserTypeEnum,
   ) {
     const url = `${environment.serverURL}${environment.user}signup`;
     const body = {
@@ -82,17 +106,23 @@ export class AuthenticationService {
       lastName,
       userType,
     };
-    return this.apiService.postAPI<any>(url, body);
+    return this.apiService.postAPI<RegisterResponse, RegisterRequest>(url, body);
   }
 
   isLoggedIn(): boolean {
-    return true;
+    return !!this.user;
   }
 
   resetAuth(): void {
+    localStorage.removeItem('idToken');
+    delete this.user;
   }
 
-  logout(): Observable<void> {
-    return new Observable<void>();
+  logout(): void {
+    localStorage.clear();
+
+    this.user = undefined;
+    this.router.navigate([URL_LOGIN]);
+
   }
 }

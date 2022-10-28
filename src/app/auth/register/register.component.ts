@@ -4,6 +4,7 @@ import { AuthenticationService } from '../../common/services/autentication.servi
 import { SweetAlert } from '../../common/services/sweet-alert.service';
 import { Router } from '@angular/router';
 import { URL_LOGIN } from '../../common/constants/url.constant';
+import { UserTypeEnum } from '../../common/enum/userType.enum';
 
 @Component({
   selector: 'ngx-register',
@@ -14,6 +15,16 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
   isLoading = false;
+  userTypeEnum = UserTypeEnum;
+
+  userTypeList = [
+    {
+      value: this.userTypeEnum.LANDLORD,
+    },
+    {
+      value: this.userTypeEnum.TENANT,
+    },
+  ];
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -42,9 +53,9 @@ export class RegisterComponent implements OnInit {
 
           return rePassword === password ? null : { notMatch: true };
         }]),
-      firstName: new FormControl('Duc', [Validators.required]),
-      lastName: new FormControl('Nguyen', [Validators.required]),
-      userType: new FormControl('landlord', [Validators.required]),
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
+      userType: new FormControl(this.userTypeList[0].value, [Validators.required]),
     });
 
     this.checkAuth();
@@ -92,7 +103,9 @@ export class RegisterComponent implements OnInit {
       this.lastName.value,
       this.userType.value,
     ).subscribe(res => {
-      console.log(res);
+      if (res && res._id) {
+        this.router.navigate([URL_LOGIN]);
+      }
     });
   }
 

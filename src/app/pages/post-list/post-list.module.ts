@@ -5,6 +5,7 @@ import { PostListRoutingModule } from './post-list-routing.module';
 import { NbButtonModule, NbCardModule, NbInputModule, NbListModule, NbUserModule } from '@nebular/theme';
 import { CreateEditPostComponent } from './create-edit-post/create-edit-post.component';
 import { ThemeModule } from '../../@theme/theme.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -13,16 +14,17 @@ import { ThemeModule } from '../../@theme/theme.module';
     PostListComponent,
     CreateEditPostComponent,
   ],
-  imports: [
-    CommonModule,
-    PostListRoutingModule,
-    NbCardModule,
-    NbListModule,
-    NbUserModule,
-    NbInputModule,
-    NbButtonModule,
+    imports: [
+        CommonModule,
+        PostListRoutingModule,
+        NbCardModule,
+        NbListModule,
+        NbUserModule,
+        NbInputModule,
+        NbButtonModule,
 
-    ThemeModule,
-  ],
+        ThemeModule,
+        ReactiveFormsModule,
+    ],
 })
 export class PostListModule { }

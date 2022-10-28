@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../common/services/autentication.service';
 import { Router } from '@angular/router';
-import { URL_HOME, URL_LOGIN } from '../../common/constants/url.constant';
+import { URL_HOME } from '../../common/constants/url.constant';
 
 @Component({
   selector: 'ngx-logout',
   templateUrl: './logout.component.html',
-  styleUrls: ['./logout.component.scss']
+  styleUrls: ['./logout.component.scss'],
 })
 export class LogoutComponent implements OnInit {
 
@@ -22,6 +22,7 @@ export class LogoutComponent implements OnInit {
   private logoutTimeout: NodeJS.Timeout;
 
   ngOnInit(): void {
+    this.countDownLogout(3);
   }
 
   countDownLogout(delay: number): void {
@@ -36,9 +37,7 @@ export class LogoutComponent implements OnInit {
   }
 
   logout(): void {
-    this.authentication.logout().subscribe(() => {
-      this.router.navigate([URL_LOGIN]);
-    });
+    this.authentication.logout();
   }
 
   logoutNow(): void {

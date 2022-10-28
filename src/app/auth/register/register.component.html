@@ -47,18 +47,18 @@
   </div>
 
   <div class="form-control-group">
-    <label class="label" for="input-user-type">Who you wanna be?</label>
-    <input
-      nbInput
+    <label class="label">Who you wanna be?</label>
+    <nb-select
       formControlName="userType"
-      id="input-user-type"
-      name="text"
-      placeholder="User Type"
       fullWidth
       fieldSize="large"
       [status]="userType.dirty ? (userType.invalid ? 'danger' : 'success') : 'basic'"
       [attr.aria-invalid]="userType.invalid && userType.touched ? true : null"
-    />
+    >
+      <nb-option *ngFor="let item of userTypeList" value="{{item.value}}">
+        {{item.value | titlecase}}
+      </nb-option>
+    </nb-select>
     <ng-container *ngIf="userType.invalid && userType.touched">
       <p class="caption status-danger" *ngIf="userType.errors?.required">
         User Type is required!
