@@ -14,6 +14,22 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: false,
   },
   {
+    title: 'Admin',
+    icon: 'grid-outline',
+    children: [
+      {
+        title: 'Account Management',
+        icon: 'person-outline',
+        link: '/pages/admin/account-management',
+      },
+      {
+        title: 'Post Management',
+        icon: 'browser-outline',
+        link: '/pages/admin/post-management',
+      },
+    ],
+  },
+  {
     title: 'FEATURES',
     group: true,
   },

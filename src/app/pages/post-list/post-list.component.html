@@ -11,7 +11,7 @@
   <div class="col-md-12 col-lg-12 col-xxxl-12">
     <nb-card class="list-card" *ngFor="let post of postList">
       <nb-card-header>
-        <nb-user [name]="'Duc Nguyen'" [title]="'Landlord'">
+        <nb-user [name]="userService.getDisplayName(post.user.firstName, post.user.lastName)" [title]="post.user.userType">
         </nb-user>
       </nb-card-header>
       <nb-card-body>
@@ -39,6 +39,7 @@
           hero
           size="small"
           status="control"
+          (click)="chat(post)"
         >
           Chat
         </button>

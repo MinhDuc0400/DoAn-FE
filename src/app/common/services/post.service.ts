@@ -19,6 +19,6 @@ export class PostService {
   }
 
   getAllPosts() {
-    return this.apiService.getAPI<Post[]>(this.url + environment.landlord + 'all');
+    return this.apiService.getAPI<Post[]>(this.url + environment.landlord + '/all');
   }
 }

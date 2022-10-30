@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit {
       userType: new FormControl(this.userTypeList[0].value, [Validators.required]),
     });
 
-    this.checkAuth();
+    // this.checkAuth();
   }
 
   get email() {

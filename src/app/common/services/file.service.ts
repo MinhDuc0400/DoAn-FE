@@ -18,6 +18,6 @@ export class FileService {
     formData.append('upload_preset', environment.cloudinaryUploadPreset);
     // return this.apiService.postAPI<CloudBinaryResponse, FormData>(environment.cloudinaryURL, formData);
     return this.apiService.postAPI<CloudBinaryResponse, FormData>
-    (`https://api.cloudinary.com/v1_1/${environment.cloudinaryURL}/image/upload`, formData);
+    (environment.cloudinaryURL, formData);
   }
 }

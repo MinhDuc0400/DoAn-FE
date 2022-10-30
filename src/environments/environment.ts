@@ -21,10 +21,12 @@ export const environment = {
   },
   cloudinaryURL: 'https://api.cloudinary.com/v1_1/dfeeo5kqn/image/upload',
   cloudinaryUploadPreset: 'lgtqjbkn',
-  serverURL: 'http://127.0.0.1:3001/api/v1/', // local
-  user: 'user/',
-  post: 'post/',
-  landlord: 'landlord/',
-  tenant: 'tenant/',
+  serverURL: 'http://127.0.0.1:3001/api/v1', // local
+  user: '/user',
+  post: '/post',
+  conversation: '/conversation',
+  landlord: '/landlord',
+  tenant: '/tenant',
+  admin: '/admin',
 };
 

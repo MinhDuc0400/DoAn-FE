@@ -19,6 +19,11 @@ const routes: Routes = [{
       component: DashboardComponent,
     },
     {
+      path: 'admin',
+      loadChildren: () => import('./admin/admin.module')
+        .then(m => m.AdminModule),
+    },
+    {
       path: 'post',
       loadChildren: () => import('./post-list/post-list.module')
         .then(m => m.PostListModule),
