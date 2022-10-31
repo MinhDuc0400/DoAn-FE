@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { PostManagementComponent } from './post-management/post-management.component';
 import { AccountManagementComponent } from './account-management/account-management.component';
+import { PostDetailComponent } from './post-detail/post-detail.component';
 
 
 const routes: Routes = [{
@@ -16,6 +17,10 @@ const routes: Routes = [{
     {
       path: 'account-management',
       component: AccountManagementComponent,
+    },
+    {
+      path: 'post-detail/:id',
+      component: PostDetailComponent,
     },
   ],
 }];

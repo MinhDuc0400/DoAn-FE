@@ -1,1 +1,14 @@
-<p>post-management works!</p>
+<nb-card>
+  <nb-card-header>
+    Smart Table
+  </nb-card-header>
+
+  <nb-card-body>
+    <ng2-smart-table
+      [settings]="settings"
+      [source]="source"
+      (rowSelect)="onRowSelected($event)"
+    >
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

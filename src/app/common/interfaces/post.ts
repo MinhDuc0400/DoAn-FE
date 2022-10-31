@@ -6,6 +6,8 @@ export interface Post {
   title: string;
   description: string;
   images: Image[];
+  createdAt: string;
+  updatedAt: string;
   address: string;
   userId: string;
   user: User;
