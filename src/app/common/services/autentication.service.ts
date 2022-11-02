@@ -36,7 +36,6 @@ export class AuthenticationService {
   }
 
   updateLocalUser(): void {
-    console.log(this.user);
     localStorage.setItem('user', JSON.stringify(this.user));
   }
 
@@ -97,7 +96,7 @@ export class AuthenticationService {
     lastName: string,
     userType: UserTypeEnum,
   ) {
-    const url = `${environment.serverURL}${environment.user}signup`;
+    const url = `${environment.serverURL}${environment.user}/signup`;
     const body = {
       email,
       password,

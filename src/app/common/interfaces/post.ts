@@ -1,5 +1,6 @@
 import { FileTypeEnum } from '../enum/fileType.enum';
 import { UserTypeEnum } from '../enum/userType.enum';
+import { PostStatusTypeEnum } from '../enum/postStatusType.enum';
 
 export interface Post {
   _id: string;
@@ -11,7 +12,7 @@ export interface Post {
   address: string;
   userId: string;
   user: User;
-  status: string;
+  status: PostStatusTypeEnum;
 }
 
 export interface User {
@@ -28,6 +29,11 @@ export interface Image {
   url: string;
 }
 
+export interface ChangePostStatusRequest {
+  postId: string;
+  status: PostStatusTypeEnum;
+}
+
 export interface CreatePostRequest {
   title: string;
   description: string;
@@ -41,5 +47,5 @@ export interface CreatePostResponse {
   userId: string;
   images: Image[];
   address: string;
-  status: string;
+  status: PostStatusTypeEnum;
 }

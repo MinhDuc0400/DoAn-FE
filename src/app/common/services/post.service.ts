@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { NbToastrService } from '@nebular/theme';
 import { ApiService } from './api.service';
 import { CreatePostRequest, CreatePostResponse, Post } from '../interfaces/post';
 
@@ -20,5 +19,9 @@ export class PostService {
 
   getAllPosts() {
     return this.apiService.getAPI<Post[]>(this.url + environment.landlord + '/all');
+  }
+
+  getPostDetail(id: string) {
+    return this.apiService.getAPI<Post>(this.url + environment.common + `/${id}`);
   }
 }

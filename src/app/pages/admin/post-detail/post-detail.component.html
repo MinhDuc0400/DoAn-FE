@@ -1,33 +1,38 @@
 <nb-card class="list-card">
   <nb-card-header>
-    <nb-user [name]="userService.getDisplayName(post.user.firstName, post.user.lastName)" [title]="post.user.userType">
+    <nb-user [name]="userService.getDisplayName(post?.user?.firstName, post?.user?.lastName)" [title]="post?.user?.userType">
     </nb-user>
   </nb-card-header>
   <nb-card-body>
-    <h4>{{post.title}}</h4>
-    <p>{{post.description}}</p>
-    <div class="d-flex flex-wrap" *ngIf="post.images">
-      <ng-container *ngFor="let image of post.images">
+    <h4>{{post?.title}}</h4>
+    <p>{{post?.description}}</p>
+    <div class="d-flex flex-wrap" *ngIf="post?.images">
+      <ng-container *ngFor="let image of post?.images">
         <img width="50%" height="50%" [src]="image.url">
       </ng-container>
     </div>
   </nb-card-body>
-  <nb-card-footer>
+  {{post?.status}}
+  <nb-card-footer class="d-flex">
     <button
-      [style.width.%]="50"
+      class="flex-grow-1"
       nbButton
       hero
       size="small"
       status="success"
+      *ngIf="[PostStatusTypeEnum.PENDING, PostStatusTypeEnum.DECLINE].includes(post?.status)"
+      (click)="changeStatus(PostStatusTypeEnum.VERIFIED)"
     >
-      Verified
+      Accept
     </button>
     <button
-      [style.width.%]="50"
+      class="flex-grow-1"
       nbButton
       hero
       size="small"
-      status="danger  "
+      status="danger"
+      *ngIf="[PostStatusTypeEnum.PENDING, PostStatusTypeEnum.VERIFIED].includes(post?.status)"
+      (click)="changeStatus(PostStatusTypeEnum.DECLINE)"
     >
       Decline
     </button>

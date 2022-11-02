@@ -34,6 +34,10 @@ export class LoginComponent implements OnInit {
       ),
       rememberMe: new FormControl(false),
     });
+
+    this.rememberMe.valueChanges.subscribe(res => {
+      localStorage.setItem('rememberMe', res);
+    });
   }
 
   get email() {
@@ -57,8 +61,9 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.email.value, this.password.value)
       .then(async (res) => {
           const idTokenResult = await res.user.getIdTokenResult();
+          const rememberMe = this.rememberMe.value || localStorage.getItem('rememberMe');
           localStorage.setItem('idToken', idTokenResult.token);
-          if (this.rememberMe.value) {
+          if (rememberMe) {
             this.authService.updateLocalUser();
           }
           this.router.navigate([URL_HOME]);

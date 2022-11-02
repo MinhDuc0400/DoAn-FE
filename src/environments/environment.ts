@@ -28,5 +28,6 @@ export const environment = {
   landlord: '/landlord',
   tenant: '/tenant',
   admin: '/admin',
+  common: '/common',
 };
 
