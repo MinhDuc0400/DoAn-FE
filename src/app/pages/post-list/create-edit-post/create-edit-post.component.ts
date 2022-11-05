@@ -112,10 +112,10 @@ export class CreateEditPostComponent implements OnInit {
       address: this.address.value,
       images: this.imageList.value,
     };
-    //
-    // this.postService.createPost(body).subscribe(res => {
-    //   this.dismiss();
-    // });
+
+    this.postService.createPost(body).subscribe(res => {
+      this.dismiss();
+    });
   }
 
   get address() {

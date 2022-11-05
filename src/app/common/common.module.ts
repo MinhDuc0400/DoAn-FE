@@ -8,6 +8,6 @@ import { NbToastrModule } from '@nebular/theme';
   providers: [
     SweetAlert,
   ],
-  imports: [NbToastrModule]
+  imports: [NbToastrModule],
 })
 export class CommonModule { }

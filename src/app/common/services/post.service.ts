@@ -17,6 +17,10 @@ export class PostService {
     return this.apiService.postAPI<CreatePostResponse, CreatePostRequest>(this.url + environment.landlord, body);
   }
 
+  getVerifiedPost() {
+    return this.apiService.getAPI<Post[]>(this.url + environment.tenant);
+  }
+
   getAllPosts() {
     return this.apiService.getAPI<Post[]>(this.url + environment.landlord + '/all');
   }

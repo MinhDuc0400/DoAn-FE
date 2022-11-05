@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { fruits } from '../layout/list/fruits-list';
 import { ChatService } from '../extra-components/chat/chat.service';
+import { WebSocketService } from '../../common/services/web-socket.service';
 
 @Component({
   selector: 'ngx-conversation-list',
@@ -12,7 +13,13 @@ export class ConversationListComponent implements OnInit {
   messages: any[];
   constructor(
     private chatService: ChatService,
-  ) { }
+    private socketService: WebSocketService,
+  ) {
+    const idToken = localStorage.getItem('idToken');
+    if (idToken) {
+      this.socketService.connect();
+    }
+  }
 
   ngOnInit(): void {
     this.messages = this.chatService.loadMessages();

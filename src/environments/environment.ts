@@ -22,6 +22,7 @@ export const environment = {
   cloudinaryURL: 'https://api.cloudinary.com/v1_1/dfeeo5kqn/image/upload',
   cloudinaryUploadPreset: 'lgtqjbkn',
   serverURL: 'http://127.0.0.1:3001/api/v1', // local
+  socketURL: 'ws://192.168.1.58:3006/',
   user: '/user',
   post: '/post',
   conversation: '/conversation',
