@@ -28,4 +28,19 @@ export class PostService {
   getPostDetail(id: string) {
     return this.apiService.getAPI<Post>(this.url + environment.common + `/${id}`);
   }
+
+  likePost(postId: string, userId: string) {
+    return this.apiService.postAPI<Post, {postId, userId}>(this.url + environment.tenant + '/like', {
+      postId,
+      userId,
+    });
+  }
+
+  dislikePost(postId: string, userId: string) {
+    return this.apiService.postAPI<Post, {postId, userId}>(this.url + environment.tenant + '/dislike', {
+      postId,
+      userId,
+    });
+  }
+
 }

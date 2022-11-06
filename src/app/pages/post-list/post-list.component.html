@@ -29,9 +29,10 @@
           nbButton
           hero
           size="small"
-          status="control"
+          status="{{post.votedUsers?.includes(userService.currentUser.getValue()?._id) ? 'primary' : 'control'}}"
+          (click)="interestPost(post)"
         >
-          Interested
+          {{post.votedUsers?.includes(userService.currentUser.getValue()?._id) ? 'Interested' : 'Interest'}}
         </button>
         <button
           [style.width.%]="50"

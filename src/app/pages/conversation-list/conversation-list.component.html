@@ -4,8 +4,14 @@
       <nb-card-header>Conversations</nb-card-header>
       <nb-card-body>
         <nb-list>
-          <nb-list-item *ngFor="let conversation of conversationList">
-            <nb-user [name]="conversation.title" [title]="conversation.description">
+          <nb-list-item
+            *ngFor="let conversation of conversationList"
+            class="item cursor-pointer"
+            (click)="openConversation(conversation._id)"
+          >
+            <nb-user
+              [name]="userService.getDisplayName(conversation.users[0].firstName, conversation.users[0].lastName)"
+              [title]="conversation.title">
             </nb-user>
           </nb-list-item>
         </nb-list>
@@ -15,16 +21,11 @@
   <div class="chat-container col-md-8 h-100">
     <nb-chat title="Duc Nguyen" status="basic">
       <nb-chat-message *ngFor="let msg of messages"
-                       [type]="msg.type"
-                       [message]="msg.text"
-                       [reply]="msg.reply"
-                       [sender]="msg.user.name"
-                       [date]="msg.date"
-                       [files]="msg.files"
-                       [quote]="msg.quote"
-                       [latitude]="msg.latitude"
-                       [longitude]="msg.longitude"
-                       [avatar]="msg.user.avatar">
+                       [type]="msg.file ? 'file' : 'text'"
+                       [message]="msg.message"
+                       [reply]="msg.userId === userService.currentUser.getValue()._id"
+                       [sender]="userService.getDisplayName(msg.user.firstName, msg.user.lastName)"
+                       [files]="msg.file">
       </nb-chat-message>
       <nb-chat-form (send)="sendMessage($event)" [dropFiles]="true">
       </nb-chat-form>

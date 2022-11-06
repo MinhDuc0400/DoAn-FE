@@ -13,6 +13,7 @@ export interface Post {
   userId: string;
   user: User;
   status: PostStatusTypeEnum;
+  votedUsers: string[];
 }
 
 export interface User {
@@ -39,6 +40,7 @@ export interface CreatePostRequest {
   description: string;
   images: Image[];
   address: string;
+  price: number;
 }
 
 export interface CreatePostResponse {

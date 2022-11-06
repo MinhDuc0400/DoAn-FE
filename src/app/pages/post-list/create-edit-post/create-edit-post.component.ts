@@ -56,6 +56,7 @@ export class CreateEditPostComponent implements OnInit {
     this.postForm = new FormGroup({
       title: new FormControl('', [Validators.required, Validators.maxLength(60)]),
       description: new FormControl('', [Validators.required, Validators.maxLength(250)]),
+      price: new FormControl(0, [Validators.required]),
       imageList: new FormControl([
         {
         name: 'image',
@@ -111,11 +112,16 @@ export class CreateEditPostComponent implements OnInit {
       description: this.description.value,
       address: this.address.value,
       images: this.imageList.value,
+      price: +this.price.value,
     };
 
-    this.postService.createPost(body).subscribe(res => {
+    this.postService.createPost(body).subscribe(() => {
       this.dismiss();
     });
+  }
+
+  get price() {
+    return this.postForm.get('price');
   }
 
   get address() {

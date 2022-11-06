@@ -38,13 +38,42 @@ export class PostListComponent implements OnInit {
     });
   }
 
+  interestPost(post: Post) {
+    if (post.votedUsers.includes(this.userService.currentUser.getValue()._id)) {
+      this.postService.dislikePost(post._id, this.userService.currentUser.getValue()._id)
+        .subscribe(res => {
+          if (res) {
+            const index = this.postList.findIndex(element => element._id === res._id);
+            if (index > -1) {
+              this.postList[index] = {
+                ...res,
+              };
+            }
+          }
+        });
+    } else {
+      this.postService.likePost(post._id, this.userService.currentUser.getValue()._id)
+        .subscribe(res => {
+          if (res) {
+            const index = this.postList.findIndex(element => element._id === res._id);
+            if (index > -1) {
+              this.postList[index] = {
+                ...res,
+              };
+            }
+          }
+        });
+    }
+
+  }
+
   chat(post: Post) {
     const {_id, title, description} = post;
     this.conversationService.createConversation(_id, title, description).subscribe(
-      res => {
+      () => {
         this.router.navigate([URL_CONVERSATION]);
       },
-      error => {
+      () => {
 
       });
   }
