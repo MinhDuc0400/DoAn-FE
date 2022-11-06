@@ -26,6 +26,7 @@ export const environment = {
   user: '/user',
   post: '/post',
   conversation: '/conversation',
+  message: '/message',
   landlord: '/landlord',
   tenant: '/tenant',
   admin: '/admin',

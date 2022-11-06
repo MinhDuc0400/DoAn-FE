@@ -8,6 +8,7 @@ import { ApiService } from './api.service';
 import { UserTypeEnum } from '../enum/userType.enum';
 import { RegisterRequest, RegisterResponse } from '../interfaces/auth';
 import { URL_LOGIN } from '../constants/url.constant';
+import { UserService } from './user.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -19,6 +20,7 @@ export class AuthenticationService {
     private router: Router,
     private angularFireAuth: AngularFireAuth,
     private apiService: ApiService,
+    private userService: UserService,
   ) {
 
     const currentUser = localStorage.getItem('user');
@@ -37,6 +39,7 @@ export class AuthenticationService {
 
   updateLocalUser(): void {
     localStorage.setItem('user', JSON.stringify(this.user));
+    this.userService.checkUser().subscribe();
   }
 
   GoogleAuth() {

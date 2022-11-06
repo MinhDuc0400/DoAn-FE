@@ -4,8 +4,8 @@
       <nb-card-header>Conversations</nb-card-header>
       <nb-card-body>
         <nb-list>
-          <nb-list-item *ngFor="let fruit of fruits">
-            <nb-user [name]="'Duc Nguyen'" [title]="'last message'">
+          <nb-list-item *ngFor="let conversation of conversationList">
+            <nb-user [name]="conversation.title" [title]="conversation.description">
             </nb-user>
           </nb-list-item>
         </nb-list>

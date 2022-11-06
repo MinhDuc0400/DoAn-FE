@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { ApiService } from './api.service';
+import { Conversation } from '../interfaces/conversation';
 
 @Injectable({
   providedIn: 'root',
@@ -20,4 +21,7 @@ export class ConversationService {
     });
   }
 
+  getConversationList(userId: string) {
+    return this.apiService.getAPI<Conversation[]>(this.url + '/list-by-user?userId=' + userId);
+  }
 }
