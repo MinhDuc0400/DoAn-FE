@@ -5,17 +5,26 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: 'Posts',
     icon: 'shopping-cart-outline',
     link: '/pages/post',
-    home: true,
+    home: localStorage.getItem('userType') === 'tenant',
+    hidden: localStorage.getItem('userType') === 'landlord',
   },
   {
     title: 'Conversation',
     icon: 'message-square-outline',
     link: '/pages/conversation',
-    home: false,
+    home: localStorage.getItem('userType') === 'landlord',
+  },
+  {
+    title: 'Post Management',
+    icon: 'browser-outline',
+    link: '/pages/post-management',
+    hidden: localStorage.getItem('userType') !== 'landlord',
   },
   {
     title: 'Admin',
     icon: 'grid-outline',
+    home: localStorage.getItem('userType') === 'admin',
+    hidden: localStorage.getItem('userType') !== 'admin',
     children: [
       {
         title: 'Account Management',

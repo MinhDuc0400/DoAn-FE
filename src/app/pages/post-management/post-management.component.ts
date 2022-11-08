@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { LocalDataSource } from 'ng2-smart-table';
-import { PostService } from '../../../common/services/post.service';
-import { UserService } from '../../../common/services/user.service';
-import { Router } from '@angular/router';
 import * as dayjs from 'dayjs';
+import { UserService } from '../../common/services/user.service';
+import { Router } from '@angular/router';
+import { LocalDataSource } from 'ng2-smart-table';
+import { PostService } from '../../common/services/post.service';
+import { CreateEditPostComponent } from '../post-list/create-edit-post/create-edit-post.component';
+import { NbDialogService } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-post-management',
@@ -11,20 +13,16 @@ import * as dayjs from 'dayjs';
   styleUrls: ['./post-management.component.scss'],
 })
 export class PostManagementComponent implements OnInit {
+
+  private firstTimeInit = true;
+  source: LocalDataSource = new LocalDataSource();
+
   settings = {
     actions: false,
     columns: {
       _id: {
         title: 'id',
         type: 'string',
-        editable: false,
-      },
-      createdBy: {
-        title: 'Created By',
-        type: 'string',
-        valuePrepareFunction: (cell, row) => {
-          return this.userService.getDisplayName(row.user.firstName, row.user.lastName);
-        },
         editable: false,
       },
       createdAt: {
@@ -58,24 +56,35 @@ export class PostManagementComponent implements OnInit {
     },
   };
 
-  source: LocalDataSource = new LocalDataSource();
-
-  private firstTimeInit = true;
-
   constructor(
-    private postService: PostService,
     private userService: UserService,
     private router: Router,
+    private postService: PostService,
+    private dialogService: NbDialogService,
+
   ) { }
 
   ngOnInit(): void {
-    this.postService.getAllPosts().subscribe(res => {
+    this.postService.getPostLandlord().subscribe(res => {
       this.source.load(res);
     });
   }
 
+  open() {
+    this.dialogService.open(CreateEditPostComponent, {
+      context: {
+        title: 'Create Post',
+      },
+    }).onClose.subscribe(() => {
+      this.firstTimeInit = true;
+      this.postService.getPostLandlord().subscribe(res => {
+        this.source.load(res);
+      });
+    });
+  }
+
   onRowSelected(event): void {
-    !this.firstTimeInit && this.router.navigateByUrl(`pages/admin/post-detail/${event.data._id}`);
+    !this.firstTimeInit && this.router.navigateByUrl(`pages/post-management/post-detail/${event.data._id}`);
     this.firstTimeInit = false;
   }
 

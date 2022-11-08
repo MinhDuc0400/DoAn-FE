@@ -9,7 +9,7 @@ import { Observable, of } from 'rxjs';
 import { AuthenticationService } from '../services/autentication.service';
 import { URL_LOGIN } from '../constants/url.constant';
 @Injectable({ providedIn: 'root' })
-export class AuthGuard implements CanActivate {
+export class LandlordGuard implements CanActivate {
   checkAuth: boolean = false;
 
   constructor(
@@ -21,18 +21,12 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): Observable<boolean> {
-    const isLoggedIn = this.authenticationService.isLoggedIn();
-    // Not check auth yet
-    if (!this.checkAuth) {
-      if (isLoggedIn) {
-        this.checkAuth = true;
-        return of(true);
-      }
+    const isAdmin = localStorage.getItem('userType') === 'landlord';
+
+    if (!isAdmin) {
       this.backToLogin();
       return of(false);
-    }
-
-    if (this.checkAuth) {
+    } else {
       return of(true);
     }
   }

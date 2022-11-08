@@ -22,7 +22,12 @@ export class UserService {
   checkUser() {
     return this.apiService.getAPI<User>(this.url + '/profile')
       .pipe(
-        tap(el => el && this.currentUser.next(el)),
+        tap(el => {
+          if (el) {
+            this.currentUser.next(el);
+            localStorage.setItem('userType', el.userType);
+          }
+        }),
       );
   }
 }

@@ -10,6 +10,7 @@ export interface Post {
   createdAt: string;
   updatedAt: string;
   address: string;
+  price: string;
   userId: string;
   user: User;
   status: PostStatusTypeEnum;

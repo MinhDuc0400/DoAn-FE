@@ -17,8 +17,16 @@ export class PostService {
     return this.apiService.postAPI<CreatePostResponse, CreatePostRequest>(this.url + environment.landlord, body);
   }
 
+  editPost(body: CreatePostRequest, postId: string) {
+    return this.apiService.putAPI<CreatePostRequest>(this.url + environment.landlord + `/${postId}`, body);
+  }
+
   getVerifiedPost() {
     return this.apiService.getAPI<Post[]>(this.url + environment.tenant);
+  }
+
+  getPostLandlord() {
+    return this.apiService.getAPI<Post[]>(this.url + environment.landlord);
   }
 
   getAllPosts() {
@@ -34,6 +42,10 @@ export class PostService {
       postId,
       userId,
     });
+  }
+
+  deletePost(postId: string) {
+    return this.apiService.deleteAPI(this.url + environment.landlord + `/${postId}`);
   }
 
   dislikePost(postId: string, userId: string) {

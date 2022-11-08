@@ -2,24 +2,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
+import { AdminGuard } from '../common/guards/admin.guard';
+import { LandlordGuard } from '../common/guards/landlord.guard';
 
 const routes: Routes = [{
   path: '',
   component: PagesComponent,
   children: [
     {
-      path: 'dashboard',
-      component: ECommerceComponent,
-    },
-    {
-      path: 'iot-dashboard',
-      component: DashboardComponent,
-    },
-    {
       path: 'admin',
+      canActivate: [AdminGuard],
       loadChildren: () => import('./admin/admin.module')
         .then(m => m.AdminModule),
     },
@@ -32,6 +25,12 @@ const routes: Routes = [{
       path: 'conversation',
       loadChildren: () => import('./conversation-list/conversation-list.module')
         .then(m => m.ConversationListModule),
+    },
+    {
+      path: 'post-management',
+      canActivate: [LandlordGuard],
+      loadChildren: () => import('./post-management/post-management.module')
+        .then(m => m.PostManagementModule),
     },
     {
       path: 'layout',

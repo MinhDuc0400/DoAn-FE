@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PostService } from '../../../common/services/post.service';
-import { CreatePostRequest } from '../../../common/interfaces/post';
+import { CreatePostRequest, Post } from '../../../common/interfaces/post';
 import { FileTypeEnum } from '../../../common/enum/fileType.enum';
 import { from } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
@@ -16,6 +16,7 @@ import { FileService } from '../../../common/services/file.service';
 export class CreateEditPostComponent implements OnInit {
 
   @Input() title: string;
+  @Input() post: Post;
   postForm: FormGroup;
 
   imageListToDisplay: string[] = [];
@@ -53,44 +54,54 @@ export class CreateEditPostComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.postForm = new FormGroup({
-      title: new FormControl('', [Validators.required, Validators.maxLength(60)]),
-      description: new FormControl('', [Validators.required, Validators.maxLength(250)]),
-      price: new FormControl(0, [Validators.required]),
-      imageList: new FormControl([
-        {
-        name: 'image',
-        type: FileTypeEnum.IMAGE,
-        url: 'https://images.adsttc.com/media/images/629f/3517/c372/5201/650f/1c7f/large_jpg/hyde-park-house-robeson-architects_1.jpg?1654601149'
-        },
-        {
-          name: 'image',
-          type: FileTypeEnum.IMAGE,
-          url: 'https://images.adsttc.com/media/images/629f/3517/c372/5201/650f/1c7f/large_jpg/hyde-park-house-robeson-architects_1.jpg?1654601149'
-        },
-        {
-          name: 'image',
-          type: FileTypeEnum.IMAGE,
-          url: 'https://images.adsttc.com/media/images/629f/3517/c372/5201/650f/1c7f/large_jpg/hyde-park-house-robeson-architects_1.jpg?1654601149'
-        },
-        {
-          name: 'image',
-          type: FileTypeEnum.IMAGE,
-          url: 'https://images.adsttc.com/media/images/629f/3517/c372/5201/650f/1c7f/large_jpg/hyde-park-house-robeson-architects_1.jpg?1654601149'
-        },
-        {
-          name: 'image',
-          type: FileTypeEnum.IMAGE,
-          url: 'https://images.adsttc.com/media/images/629f/3517/c372/5201/650f/1c7f/large_jpg/hyde-park-house-robeson-architects_1.jpg?1654601149'
-        },
-        {
-          name: 'image',
-          type: FileTypeEnum.IMAGE,
-          url: 'https://images.adsttc.com/media/images/629f/3517/c372/5201/650f/1c7f/large_jpg/hyde-park-house-robeson-architects_1.jpg?1654601149'
-        },
-      ], Validators.maxLength(6)),
-      address: new FormControl('', Validators.required),
-    });
+    if (!this.post) {
+      this.postForm = new FormGroup({
+        title: new FormControl('', [Validators.required, Validators.maxLength(60)]),
+        description: new FormControl('', [Validators.required, Validators.maxLength(250)]),
+        price: new FormControl(0, [Validators.required]),
+        imageList: new FormControl([
+          {
+            name: 'image',
+            type: FileTypeEnum.IMAGE,
+            url: 'https://images.adsttc.com/media/images/629f/3517/c372/5201/650f/1c7f/large_jpg/hyde-park-house-robeson-architects_1.jpg?1654601149'
+          },
+          {
+            name: 'image',
+            type: FileTypeEnum.IMAGE,
+            url: 'https://images.adsttc.com/media/images/629f/3517/c372/5201/650f/1c7f/large_jpg/hyde-park-house-robeson-architects_1.jpg?1654601149'
+          },
+          {
+            name: 'image',
+            type: FileTypeEnum.IMAGE,
+            url: 'https://images.adsttc.com/media/images/629f/3517/c372/5201/650f/1c7f/large_jpg/hyde-park-house-robeson-architects_1.jpg?1654601149'
+          },
+          {
+            name: 'image',
+            type: FileTypeEnum.IMAGE,
+            url: 'https://images.adsttc.com/media/images/629f/3517/c372/5201/650f/1c7f/large_jpg/hyde-park-house-robeson-architects_1.jpg?1654601149'
+          },
+          {
+            name: 'image',
+            type: FileTypeEnum.IMAGE,
+            url: 'https://images.adsttc.com/media/images/629f/3517/c372/5201/650f/1c7f/large_jpg/hyde-park-house-robeson-architects_1.jpg?1654601149'
+          },
+          {
+            name: 'image',
+            type: FileTypeEnum.IMAGE,
+            url: 'https://images.adsttc.com/media/images/629f/3517/c372/5201/650f/1c7f/large_jpg/hyde-park-house-robeson-architects_1.jpg?1654601149'
+          },
+        ], Validators.maxLength(6)),
+        address: new FormControl('', Validators.required),
+      });
+    } else {
+      this.postForm = new FormGroup({
+        title: new FormControl(this.post.title, [Validators.required, Validators.maxLength(60)]),
+        description: new FormControl(this.post.description, [Validators.required, Validators.maxLength(250)]),
+        price: new FormControl(+this.post.price, [Validators.required]),
+        imageList: new FormControl(this.post.images, Validators.maxLength(6)),
+        address: new FormControl(this.post.address, Validators.required),
+      });
+    }
   }
 
   submit() {
@@ -114,10 +125,16 @@ export class CreateEditPostComponent implements OnInit {
       images: this.imageList.value,
       price: +this.price.value,
     };
+    if (!this.post) {
+      this.postService.createPost(body).subscribe(() => {
+        this.dismiss();
+      });
+    } else {
+      this.postService.editPost(body, this.post._id).subscribe(() => {
+        this.dismiss();
+      });
+    }
 
-    this.postService.createPost(body).subscribe(() => {
-      this.dismiss();
-    });
   }
 
   get price() {
