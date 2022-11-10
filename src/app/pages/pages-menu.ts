@@ -35,6 +35,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Post Management',
         icon: 'browser-outline',
         link: '/pages/admin/post-management',
+        hidden: localStorage.getItem('userType') !== 'landlord',
       },
     ],
   },

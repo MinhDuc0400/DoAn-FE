@@ -7,17 +7,17 @@ import { District, Province } from '../interfaces/location';
   providedIn: 'root',
 })
 export class LocationService {
-  private url = environment.addressURL;
+  private url = environment.serverURL + environment.post + environment.common + environment.location + '?url=';
 
   constructor(
     private apiService: ApiService,
   ) { }
 
-  getListProvinces() {
-    this.apiService.getAPI<Province>(this.url + '/province');
+  getListProvinces(baseUrl: string) {
+    return this.apiService.getAPI<Province>(this.url + baseUrl);
   }
 
-  getListDistrictsByProvinceId(provinceId: string) {
-    this.apiService.getAPI<District>(this.url + '/province/district/' + provinceId);
+  getListDistrictsByProvinceId(baseUrl: string) {
+    return this.apiService.getAPI<District>(this.url + baseUrl);
   }
 }

@@ -23,6 +23,8 @@ export const environment = {
   cloudinaryUploadPreset: 'lgtqjbkn',
   serverURL: 'http://127.0.0.1:3001/api/v1', // local
   socketURL: 'ws://127.0.0.1:3006/',
+  provinceURL: 'https://vapi.vnappmob.com/api/province',
+  districtURL: 'https://vapi.vnappmob.com/api/province/district/',
   user: '/user',
   post: '/post',
   conversation: '/conversation',
@@ -31,5 +33,6 @@ export const environment = {
   tenant: '/tenant',
   admin: '/admin',
   common: '/common',
+  location: '/location',
 };
 

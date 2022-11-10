@@ -5,8 +5,10 @@ import { PostService } from '../../../common/services/post.service';
 import { CreatePostRequest, Post } from '../../../common/interfaces/post';
 import { FileTypeEnum } from '../../../common/enum/fileType.enum';
 import { from } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { mergeMap, switchMap } from 'rxjs/operators';
 import { FileService } from '../../../common/services/file.service';
+import { LocationService } from '../../../common/services/location.service';
+import { ResultDistrict, ResultProvince } from '../../../common/interfaces/location';
 
 @Component({
   selector: 'ngx-create-edit-post',
@@ -22,10 +24,14 @@ export class CreateEditPostComponent implements OnInit {
   imageListToDisplay: string[] = [];
   imageListToUpload: File[] = [];
 
+  provinceArray: ResultProvince[] = [];
+  districtArray: ResultDistrict[] = [];
+
   constructor(
     protected ref: NbDialogRef<CreateEditPostComponent>,
     private postService: PostService,
     private fileService: FileService,
+    private locationService: LocationService,
   ) {}
 
   dismiss() {
@@ -54,6 +60,9 @@ export class CreateEditPostComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.locationService.getListProvinces('https://vapi.vnappmob.com/api/province').subscribe(res => {
+      this.provinceArray = res.results;
+    });
     if (!this.post) {
       this.postForm = new FormGroup({
         title: new FormControl('', [Validators.required, Validators.maxLength(60)]),
@@ -92,6 +101,8 @@ export class CreateEditPostComponent implements OnInit {
           },
         ], Validators.maxLength(6)),
         address: new FormControl('', Validators.required),
+        districtId: new FormControl('', Validators.required),
+        provinceId: new FormControl('', Validators.required),
       });
     } else {
       this.postForm = new FormGroup({
@@ -100,8 +111,16 @@ export class CreateEditPostComponent implements OnInit {
         price: new FormControl(+this.post.price, [Validators.required]),
         imageList: new FormControl(this.post.images, Validators.maxLength(6)),
         address: new FormControl(this.post.address, Validators.required),
+        districtId: new FormControl(this.post.location.districtId, Validators.required),
+        provinceId: new FormControl(this.post.location.provinceId, Validators.required),
       });
     }
+
+    this.provinceId.valueChanges
+      .pipe(switchMap(id => this.locationService.getListDistrictsByProvinceId('https://vapi.vnappmob.com/api/province/district/' + id)))
+      .subscribe(res => {
+        this.districtArray = res.results;
+      });
   }
 
   submit() {
@@ -124,6 +143,8 @@ export class CreateEditPostComponent implements OnInit {
       address: this.address.value,
       images: this.imageList.value,
       price: +this.price.value,
+      districtId: this.districtId.value,
+      provinceId: this.provinceId.value,
     };
     if (!this.post) {
       this.postService.createPost(body).subscribe(() => {
@@ -143,6 +164,14 @@ export class CreateEditPostComponent implements OnInit {
 
   get address() {
     return this.postForm.get('address');
+  }
+
+  get districtId() {
+    return this.postForm.get('districtId');
+  }
+
+  get provinceId() {
+    return this.postForm.get('provinceId');
   }
 
   get postTitle() {

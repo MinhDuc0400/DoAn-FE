@@ -51,6 +51,13 @@ export class PostManagementComponent implements OnInit {
         title: 'Description',
         type: 'string',
       },
+      location: {
+        title: 'Address',
+        type: 'string',
+        valuePrepareFunction: (cell, row) => {
+          return row.address + row.location.districtId + row.location.provinceId;
+        },
+      },
       status: {
         title: 'Status',
         type: 'string',

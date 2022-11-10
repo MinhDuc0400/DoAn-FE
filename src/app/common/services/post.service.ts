@@ -21,8 +21,14 @@ export class PostService {
     return this.apiService.putAPI<CreatePostRequest>(this.url + environment.landlord + `/${postId}`, body);
   }
 
-  getVerifiedPost() {
-    return this.apiService.getAPI<Post[]>(this.url + environment.tenant);
+  getVerifiedPost(startPrice?: number, endPrice?: number, provinceId?: string, districtId?: string) {
+    return this.apiService.getAPI<Post[]>(
+      this.url +
+      environment.tenant +
+      '?startPrice=' + (startPrice || '') +
+      '&endPrice=' + (endPrice || '') +
+      '&provinceId=' + (provinceId || '') +
+      '&districtId=' + (districtId || ''));
   }
 
   getPostLandlord() {

@@ -10,11 +10,17 @@ export interface Post {
   createdAt: string;
   updatedAt: string;
   address: string;
+  location: Location;
   price: string;
   userId: string;
   user: User;
   status: PostStatusTypeEnum;
   votedUsers: string[];
+}
+
+interface Location {
+  districtId: string;
+  provinceId: string;
 }
 
 export interface User {
@@ -41,6 +47,8 @@ export interface CreatePostRequest {
   description: string;
   images: Image[];
   address: string;
+  districtId: string;
+  provinceId: string;
   price: number;
 }
 
@@ -51,4 +59,6 @@ export interface CreatePostResponse {
   images: Image[];
   address: string;
   status: PostStatusTypeEnum;
+  districtId: string;
+  provinceId: string;
 }
