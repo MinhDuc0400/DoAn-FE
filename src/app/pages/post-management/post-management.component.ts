@@ -53,7 +53,7 @@ export class PostManagementComponent implements OnInit {
         title: 'Address',
         type: 'string',
         valuePrepareFunction: (cell, row) => {
-          return row.address + ' ' + row.location.districtId + ' ' + row.location.provinceId;
+          return row.address + ' ' + row.location.districtName + ' ' + row.location.provinceName;
         },
       },
       status: {
@@ -75,6 +75,15 @@ export class PostManagementComponent implements OnInit {
     this.postService.getPostLandlord().subscribe(res => {
       this.source.load(res);
     });
+
+    this.source.onChanged().subscribe(change => {
+      switch (change.action) {
+        case 'page':
+          this.firstTimeInit = true;
+          break;
+      }
+    });
+
   }
 
   open() {

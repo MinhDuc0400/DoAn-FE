@@ -4,11 +4,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PostService } from '../../../common/services/post.service';
 import { CreatePostRequest, Post } from '../../../common/interfaces/post';
 import { FileTypeEnum } from '../../../common/enum/fileType.enum';
-import { from } from 'rxjs';
-import { mergeMap, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { finalize, switchMap } from 'rxjs/operators';
 import { FileService } from '../../../common/services/file.service';
 import { LocationService } from '../../../common/services/location.service';
 import { ResultDistrict, ResultProvince } from '../../../common/interfaces/location';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Component({
   selector: 'ngx-create-edit-post',
@@ -26,12 +27,14 @@ export class CreateEditPostComponent implements OnInit {
 
   provinceArray: ResultProvince[] = [];
   districtArray: ResultDistrict[] = [];
+  downloadURL: Observable<string>;
 
   constructor(
     protected ref: NbDialogRef<CreateEditPostComponent>,
     private postService: PostService,
     private fileService: FileService,
     private locationService: LocationService,
+    private storage: AngularFireStorage,
   ) {}
 
   dismiss() {
@@ -55,7 +58,27 @@ export class CreateEditPostComponent implements OnInit {
       ...this.imageListToDisplay,
       imageSrc,
     ];
-    // this.imageList.setValue([...this.imageList.value, imageSrc]);
+    const time = Date.now();
+    const filePath = `postImage/${time}`;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(`postImage/${time}`, imageFile);
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          this.downloadURL = fileRef.getDownloadURL();
+          this.downloadURL.subscribe(url => {
+            if (url) {
+              this.imageList.setValue([...this.imageList.value, {
+                name: 'image',
+                type: FileTypeEnum.IMAGE,
+                url: url,
+              }]);
+            }
+          });
+        }),
+      )
+      .subscribe();
 
   }
 
@@ -68,38 +91,7 @@ export class CreateEditPostComponent implements OnInit {
         title: new FormControl('', [Validators.required, Validators.maxLength(60)]),
         description: new FormControl('', [Validators.required, Validators.maxLength(250)]),
         price: new FormControl(0, [Validators.required]),
-        imageList: new FormControl([
-          {
-            name: 'image',
-            type: FileTypeEnum.IMAGE,
-            url: 'https://images.adsttc.com/media/images/629f/3517/c372/5201/650f/1c7f/large_jpg/hyde-park-house-robeson-architects_1.jpg?1654601149'
-          },
-          {
-            name: 'image',
-            type: FileTypeEnum.IMAGE,
-            url: 'https://images.adsttc.com/media/images/629f/3517/c372/5201/650f/1c7f/large_jpg/hyde-park-house-robeson-architects_1.jpg?1654601149'
-          },
-          {
-            name: 'image',
-            type: FileTypeEnum.IMAGE,
-            url: 'https://images.adsttc.com/media/images/629f/3517/c372/5201/650f/1c7f/large_jpg/hyde-park-house-robeson-architects_1.jpg?1654601149'
-          },
-          {
-            name: 'image',
-            type: FileTypeEnum.IMAGE,
-            url: 'https://images.adsttc.com/media/images/629f/3517/c372/5201/650f/1c7f/large_jpg/hyde-park-house-robeson-architects_1.jpg?1654601149'
-          },
-          {
-            name: 'image',
-            type: FileTypeEnum.IMAGE,
-            url: 'https://images.adsttc.com/media/images/629f/3517/c372/5201/650f/1c7f/large_jpg/hyde-park-house-robeson-architects_1.jpg?1654601149'
-          },
-          {
-            name: 'image',
-            type: FileTypeEnum.IMAGE,
-            url: 'https://images.adsttc.com/media/images/629f/3517/c372/5201/650f/1c7f/large_jpg/hyde-park-house-robeson-architects_1.jpg?1654601149'
-          },
-        ], Validators.maxLength(6)),
+        imageList: new FormControl([]),
         address: new FormControl('', Validators.required),
         districtId: new FormControl('', Validators.required),
         provinceId: new FormControl('', Validators.required),
@@ -109,7 +101,7 @@ export class CreateEditPostComponent implements OnInit {
         title: new FormControl(this.post.title, [Validators.required, Validators.maxLength(60)]),
         description: new FormControl(this.post.description, [Validators.required, Validators.maxLength(250)]),
         price: new FormControl(+this.post.price, [Validators.required]),
-        imageList: new FormControl(this.post.images, Validators.maxLength(6)),
+        imageList: new FormControl(this.post.images),
         address: new FormControl(this.post.address, Validators.required),
         districtId: new FormControl(this.post.location.districtId, Validators.required),
         provinceId: new FormControl(this.post.location.provinceId, Validators.required),
@@ -127,16 +119,6 @@ export class CreateEditPostComponent implements OnInit {
     if (this.postForm.invalid) {
       return;
     }
-
-    from(this.imageListToUpload)
-      .pipe(
-        mergeMap((file) => {
-          return this.fileService.uploadFile(file);
-        }),
-      ).subscribe(res => {
-      console.log(res);
-    });
-
     const body: CreatePostRequest = {
       title: this.postTitle.value,
       description: this.description.value,
@@ -144,7 +126,9 @@ export class CreateEditPostComponent implements OnInit {
       images: this.imageList.value,
       price: +this.price.value,
       districtId: this.districtId.value,
+      districtName: this.districtArray.find(el => el.district_id === this.districtId.value).district_name,
       provinceId: this.provinceId.value,
+      provinceName: this.provinceArray.find(el => el.province_id === this.provinceId.value).province_name,
     };
     if (!this.post) {
       this.postService.createPost(body).subscribe(() => {

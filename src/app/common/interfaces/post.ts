@@ -21,6 +21,8 @@ export interface Post {
 interface Location {
   districtId: string;
   provinceId: string;
+  districtName: string;
+  provinceName: string;
 }
 
 export interface User {
@@ -49,6 +51,8 @@ export interface CreatePostRequest {
   address: string;
   districtId: string;
   provinceId: string;
+  districtName: string;
+  provinceName: string;
   price: number;
 }
 
