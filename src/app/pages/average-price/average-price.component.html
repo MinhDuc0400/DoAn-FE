@@ -1,0 +1,15 @@
+<div [formGroup]="filterForm">
+  <nb-select
+    fullWidth
+    formControlName="provinceId"
+    placeholder="District"
+    [status]="provinceId.dirty ? (provinceId.invalid ? 'danger' : 'success') : 'basic'"
+    [attr.aria-invalid]="provinceId.invalid && provinceId.touched ? true : null"
+  >
+    <nb-option *ngFor="let item of provinceArray" value="{{item.province_id}}">
+      {{item.province_name | titlecase}}
+    </nb-option>
+  </nb-select>
+
+  <chart type="bar" [data]="data"></chart>
+</div>

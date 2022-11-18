@@ -17,6 +17,11 @@ const routes: Routes = [{
         .then(m => m.AdminModule),
     },
     {
+      path: 'price-average',
+      loadChildren: () => import('./average-price/average-price.module')
+        .then(m => m.AveragePriceModule),
+    },
+    {
       path: 'post',
       loadChildren: () => import('./post-list/post-list.module')
         .then(m => m.PostListModule),

@@ -61,4 +61,8 @@ export class PostService {
     });
   }
 
+  getAveragePriceInProvince(provinceId: string) {
+    return this.apiService.getAPI(this.url + environment.common + `/price-by-location?provinceId=${provinceId}`);
+  }
+
 }
