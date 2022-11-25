@@ -39,6 +39,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
+
+  {
+    title: 'Trending',
+    icon: 'grid-outline',
+    hidden: localStorage.getItem('userType') !== 'tenant',
+    link: '/pages/price-average',
+  },
   // {
   //   title: 'FEATURES',
   //   group: true,

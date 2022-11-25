@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NbThemeService } from '@nebular/theme';
+import { NbColorHelper, NbThemeService } from '@nebular/theme';
 import { FormControl, FormGroup } from '@angular/forms';
 import { LocationService } from '../../common/services/location.service';
 import { ResultDistrict, ResultProvince } from '../../common/interfaces/location';
@@ -49,6 +49,8 @@ export class AveragePriceComponent implements OnInit {
           labels: provinceIds.map(el => res[el].districtName),
           datasets: [{
             data: provinceIds.map(el => res[el].price),
+            label: 'Average Price',
+            backgroundColor: NbColorHelper.hexToRgbA(this.colors.primaryLight, 0.8),
           }],
         };
 
