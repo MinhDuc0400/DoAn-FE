@@ -1,0 +1,34 @@
+
+<nb-card class="list-card">
+  <nb-card-body>
+    <h4>{{post?.title}}</h4>
+    <p>{{post?.description}}</p>
+    <div class="d-flex flex-wrap" *ngIf="post?.images">
+      <ng-container *ngFor="let image of post?.images">
+        <img width="50%" height="50%" [src]="image.url">
+      </ng-container>
+    </div>
+  </nb-card-body>
+  <nb-card-footer class="d-flex">
+    <button
+      [style.width.%]="50"
+      nbButton
+      hero
+      size="small"
+      status="{{post?.votedUsers?.includes(userService.currentUser.getValue()?._id) ? 'primary' : 'control'}}"
+      (click)="interestPost(post)"
+    >
+      {{post?.votedUsers?.includes(userService.currentUser.getValue()?._id) ? 'Interested' : 'Interest'}}
+    </button>
+    <button
+      [style.width.%]="50"
+      nbButton
+      hero
+      size="small"
+      status="control"
+      (click)="chat(post)"
+    >
+      Chat
+    </button>
+  </nb-card-footer>
+</nb-card>

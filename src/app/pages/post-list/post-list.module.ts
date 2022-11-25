@@ -13,6 +13,7 @@ import {
 import { CreateEditPostComponent } from './create-edit-post/create-edit-post.component';
 import { ThemeModule } from '../../@theme/theme.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PostDetailComponent } from './post-detail/post-detail.component';
 
 
 
@@ -20,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     PostListComponent,
     CreateEditPostComponent,
+    PostDetailComponent,
   ],
   imports: [
     CommonModule,

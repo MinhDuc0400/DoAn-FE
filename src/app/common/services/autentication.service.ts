@@ -7,7 +7,12 @@ import { environment } from '../../../environments/environment';
 import { ApiService } from './api.service';
 import { UserTypeEnum } from '../enum/userType.enum';
 import { RegisterRequest, RegisterResponse } from '../interfaces/auth';
-import { URL_LOGIN } from '../constants/url.constant';
+import {
+  URL_ADMIN_POST_MANAGEMENT,
+  URL_HOME,
+  URL_LOGIN,
+  URL_POST_MANAGEMENT,
+} from '../constants/url.constant';
 import { UserService } from './user.service';
 @Injectable({
   providedIn: 'root',
@@ -39,7 +44,19 @@ export class AuthenticationService {
 
   updateLocalUser(): void {
     localStorage.setItem('user', JSON.stringify(this.user));
-    this.userService.checkUser().subscribe();
+    this.userService.checkUser().subscribe(res => {
+      switch (res.userType) {
+        case UserTypeEnum.ADMIN:
+          this.router.navigate([URL_ADMIN_POST_MANAGEMENT]);
+          break;
+        case UserTypeEnum.LANDLORD:
+          this.router.navigate([URL_POST_MANAGEMENT]);
+          break;
+        case UserTypeEnum.TENANT:
+          this.router.navigate([URL_HOME]);
+          break;
+      }
+    });
   }
 
   GoogleAuth() {

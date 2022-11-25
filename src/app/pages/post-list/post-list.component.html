@@ -1,4 +1,4 @@
-<div class="row" *ngIf="(userService.currentUser | async).userType === 'landlord'">
+<div class="row" *ngIf="(userService.currentUser | async)?.userType === 'landlord'">
   <div class="col-md-12 col-lg-12 col-xxxl-12">
     <nb-card>
       <nb-card-body>
@@ -7,7 +7,7 @@
     </nb-card>
   </div>
 </div>
-<div class="row" [formGroup]="filterForm" *ngIf="(userService.currentUser | async).userType === 'tenant'">
+<div class="row" [formGroup]="filterForm" *ngIf="(userService.currentUser | async)?.userType === 'tenant'">
   <div class="col-sm-3">
     <div class="form-group">
       <input
@@ -62,7 +62,7 @@
 
 <div class="row">
   <div class="col-md-12 col-lg-12 col-xxxl-12">
-    <nb-card class="list-card" *ngFor="let post of postList">
+    <nb-card class="list-card" *ngFor="let post of postList" (click)="navigateDetail(post._id)">
       <nb-card-header>
         <nb-user [name]="userService.getDisplayName(post.user.firstName, post.user.lastName)" [title]="post.user.userType">
         </nb-user>

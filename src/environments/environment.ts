@@ -34,5 +34,6 @@ export const environment = {
   admin: '/admin',
   common: '/common',
   location: '/location',
+  vote: '/vote',
 };
 

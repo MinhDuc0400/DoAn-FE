@@ -62,10 +62,7 @@ export class LoginComponent implements OnInit {
           const idTokenResult = await res.user.getIdTokenResult();
           const rememberMe = this.rememberMe.value || localStorage.getItem('rememberMe');
           localStorage.setItem('idToken', idTokenResult.token);
-          if (rememberMe) {
-            this.authService.updateLocalUser();
-          }
-          this.router.navigate([URL_HOME]);
+          this.authService.updateLocalUser();
           this.isLoading = false;
         },
       )

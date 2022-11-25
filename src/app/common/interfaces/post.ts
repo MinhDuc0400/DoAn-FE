@@ -66,3 +66,8 @@ export interface CreatePostResponse {
   districtId: string;
   provinceId: string;
 }
+
+export interface PostVoteChartItem {
+  day: string;
+  votes: number;
+}

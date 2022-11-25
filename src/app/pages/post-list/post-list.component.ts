@@ -93,9 +93,13 @@ export class PostListComponent implements OnInit {
     });
   }
 
+  navigateDetail(postId: string) {
+    this.router.navigate(['pages/post/' + postId]);
+  }
+
   interestPost(post: Post) {
-    if (post.votedUsers.includes(this.userService.currentUser.getValue()._id)) {
-      this.postService.dislikePost(post._id, this.userService.currentUser.getValue()._id)
+    if (post.votedUsers.includes(this.userService.currentUser.getValue()?._id)) {
+      this.postService.dislikePost(post._id, this.userService.currentUser.getValue()?._id)
         .subscribe(res => {
           if (res) {
             const index = this.postList.findIndex(element => element._id === res._id);

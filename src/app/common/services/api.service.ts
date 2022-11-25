@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { NbToastrService } from '@nebular/theme';
-import { catchError, pluck } from 'rxjs/operators';
+import { catchError, pluck, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
 
@@ -31,12 +31,24 @@ export class ApiService {
       'x-api-key': environment.firebaseConfig.apiKey,
     });
   }
+  getAPINoPluck<T>(url: string): Observable<T> {
+    return this.http.get<T>(url, {
+      headers: this.getHeaders(),
+    })
+      .pipe(
+        catchError(err => {
+          this.toastService.danger(err.error.message, 'ERROR');
+          return of(err);
+        }),
+      );
+  }
 
   getAPI<T>(url: string): Observable<T> {
     return this.http.get<T>(url, {
       headers: this.getHeaders(),
     })
       .pipe(
+        tap(el => console.log(el)),
         pluck('data'),
         catchError(err => {
           this.toastService.danger(err.error.message, 'ERROR');

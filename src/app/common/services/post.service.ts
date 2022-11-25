@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { ApiService } from './api.service';
-import { CreatePostRequest, CreatePostResponse, Post } from '../interfaces/post';
+import { CreatePostRequest, CreatePostResponse, Post, PostVoteChartItem } from '../interfaces/post';
+import { tap } from 'rxjs/operators';
 
 
 @Injectable({
@@ -15,6 +16,11 @@ export class PostService {
 
   createPost(body: CreatePostRequest) {
     return this.apiService.postAPI<CreatePostResponse, CreatePostRequest>(this.url + environment.landlord, body);
+  }
+
+  getVoteByPostIdFromTo(postId: string, from: string, to: string) {
+    return this.apiService.getAPINoPluck<PostVoteChartItem[]>(
+      environment.serverURL + environment.vote + `?postId=${postId}&startDate=${from}&endDate=${to}`);
   }
 
   editPost(body: CreatePostRequest, postId: string) {

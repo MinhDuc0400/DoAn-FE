@@ -1,4 +1,4 @@
-
+<qrcode [qrdata]="urlTenant" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
 <nb-card class="list-card">
   <nb-card-body>
     <h4>{{post?.title}}</h4>
@@ -32,4 +32,15 @@
       Delete
     </button>
   </nb-card-footer>
+</nb-card>
+<nb-card>
+  <nb-card-header>Statistic</nb-card-header>
+  <nb-card-body>
+    <h4></h4>
+    <input [formControl]="form" nbInput placeholder="Range Picker" [nbDatepicker]="rangepicker">
+    <nb-rangepicker #rangepicker></nb-rangepicker>
+
+    <chart type="line" [data]="data" [options]="options"></chart>
+
+  </nb-card-body>
 </nb-card>
