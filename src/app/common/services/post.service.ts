@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { ApiService } from './api.service';
 import { CreatePostRequest, CreatePostResponse, Post, PostVoteChartItem } from '../interfaces/post';
-import { tap } from 'rxjs/operators';
-
 
 @Injectable({
   providedIn: 'root',
@@ -69,6 +67,10 @@ export class PostService {
 
   getAveragePriceInProvince(provinceId: string) {
     return this.apiService.getAPI(this.url + environment.common + `/price-by-location?provinceId=${provinceId}`);
+  }
+
+  getPostPriceRangeByDistrictId(districtId: string) {
+    return this.apiService.getAPI(this.url + environment.common + `/price-range?districtId=${districtId}`);
   }
 
 }

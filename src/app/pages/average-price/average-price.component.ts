@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NbColorHelper, NbThemeService } from '@nebular/theme';
 import { FormControl, FormGroup } from '@angular/forms';
 import { LocationService } from '../../common/services/location.service';
 import { ResultDistrict, ResultProvince } from '../../common/interfaces/location';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { PostService } from '../../common/services/post.service';
+import { ChartComponent } from 'angular2-chartjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-average-price',
@@ -12,6 +14,7 @@ import { PostService } from '../../common/services/post.service';
   styleUrls: ['./average-price.component.scss'],
 })
 export class AveragePriceComponent implements OnInit {
+  @ViewChild('someInput') someInput!: ChartComponent;
   filterForm: FormGroup;
   provinceArray: ResultProvince[] = [];
   districtArray: ResultDistrict[] = [];
@@ -24,6 +27,7 @@ export class AveragePriceComponent implements OnInit {
     private locationService: LocationService,
     private postService: PostService,
     private theme: NbThemeService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -42,7 +46,17 @@ export class AveragePriceComponent implements OnInit {
     });
 
     this.provinceId.valueChanges
-      .pipe(switchMap(id => this.postService.getAveragePriceInProvince(id + '')))
+      .pipe(
+        tap(id => {
+          this.locationService.getListDistrictsByProvinceId('https://vapi.vnappmob.com/api/province/district/' + id)
+            .subscribe(res => {
+              if (res) {
+                this.districtArray = res.results;
+              }
+            });
+        }),
+        switchMap(id => this.postService.getAveragePriceInProvince(id + '')),
+      )
       .subscribe(res => {
         const provinceIds = Object.keys(res);
         this.data = {
@@ -88,6 +102,15 @@ export class AveragePriceComponent implements OnInit {
           },
         };
       });
+  }
+
+
+  selectElement(event) {
+    this.router.navigate(['pages/price-average/' + this.findDistrictIdByDistrictName(event[0]?._model?.label)]);
+  }
+
+  findDistrictIdByDistrictName(name: string): string {
+    return this.districtArray.find(el => el.district_name === name).district_id;
   }
 
   get provinceId() {

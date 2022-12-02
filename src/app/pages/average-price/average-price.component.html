@@ -11,5 +11,5 @@
     </nb-option>
   </nb-select>
 
-  <chart type="bar" [data]="data"></chart>
+  <chart #someInput type="bar" [data]="data" (clickElement)="selectElement($event)"></chart>
 </div>
