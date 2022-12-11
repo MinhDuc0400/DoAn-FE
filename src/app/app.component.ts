@@ -10,7 +10,7 @@ import { UserService } from './common/services/user.service';
 
 @Component({
   selector: 'ngx-app',
-  template: '<router-outlet></router-outlet>',
+  template: '<router-outlet></router-outlet><nb-layout></nb-layout>',
 })
 export class AppComponent implements OnInit {
 

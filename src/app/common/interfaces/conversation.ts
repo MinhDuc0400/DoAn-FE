@@ -11,4 +11,5 @@ export interface Conversation {
   description: string;
   postId: string;
   users: User[];
+  updatedAt: string;
 }

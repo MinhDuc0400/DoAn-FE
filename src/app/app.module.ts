@@ -14,7 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 import {
   NbChatModule,
   NbDatepickerModule,
-  NbDialogModule,
+  NbDialogModule, NbLayoutModule,
   NbMenuModule,
   NbSidebarModule,
   NbToastrModule,
@@ -44,6 +44,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     ThemeModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
+    NbLayoutModule,
   ],
   bootstrap: [AppComponent],
 })

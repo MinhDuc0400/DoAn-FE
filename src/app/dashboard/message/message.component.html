@@ -1,0 +1,56 @@
+<div class="message-wrapper d-flex">
+  <div class="conversation-list-wrapper">
+    <div
+      class="conversation-item d-flex"
+      *ngFor="let conv of conversationList"
+      [ngClass]="{'conversation-item-selected': conv._id === conversationId}"
+      (click)="openConversation(conv._id)"
+    >
+      <div class="avatar d-flex align-items-center justify-content-center">
+        {{userService.getDisplayShortName(conv.users[0].firstName, conv.users[0].lastName)}}
+      </div>
+      <div class="conversation-detail">
+        <div class="conversation-user-name">{{userService.getDisplayName(conv.users[0].firstName, conv.users[0].lastName)}}</div>
+        <div class="conversation-title">{{conv.title}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="chat-wrapper">
+    <div class="chat-header d-flex align-items-center">
+      <div class="avatar d-flex align-items-center justify-content-center">
+        {{userService.getDisplayShortName(selectedUser?.firstName, selectedUser?.lastName)}}
+      </div>
+      <div class="conversation-detail">
+        <div class="conversation-user-name">{{userService.getDisplayName(selectedUser?.firstName, selectedUser?.lastName)}}</div>
+      </div>
+    </div>
+    <div class="chat-content d-flex flex-column">
+      <div
+        *ngFor="let message of messages"
+        class="message-item d-flex align-items-end"
+        [ngClass]="{'flex-row-reverse': message.userId === userService.currentUser.getValue()._id}"
+      >
+        <div class="avatar d-flex align-items-center justify-content-center">
+          {{userService.getDisplayShortName(message.user?.firstName, message.user?.lastName)}}
+        </div>
+        <div
+          class="message-content text-left"
+          [ngClass]="{'text-right from-current-user': message.userId === userService.currentUser.getValue()._id}"
+        >{{message.message}}</div>
+      </div>
+    </div>
+    <div class="chat-footer d-flex align-items-center">
+      <input
+        [formControl]="messageForm"
+        nbInput
+        fullWidth
+        placeholder="Type message here..."
+        (keyup.enter)="sendMessage()"
+      />
+      <button
+        class="send-btn d-flex align-items-center justify-content-center"
+        [disabled]="messageForm.invalid"
+        (click)="sendMessage()">Send</button>
+    </div>
+  </div>
+</div>

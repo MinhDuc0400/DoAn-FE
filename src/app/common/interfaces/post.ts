@@ -15,6 +15,8 @@ export interface Post {
   userId: string;
   user: User;
   status: PostStatusTypeEnum;
+
+  vote: number;
   votedUsers: string[];
 }
 

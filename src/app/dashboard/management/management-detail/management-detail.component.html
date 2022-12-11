@@ -1,0 +1,39 @@
+<div class="post">
+  <div class="post-content">
+    <h3>{{post?.title}}  {{post?.price | currency}}</h3>
+    <div>At {{post?.address}}-{{post?.location?.provinceName}}-{{post?.location?.districtName}}</div>
+    <div>{{post?.description}}</div>
+    <div class="d-flex flex-wrap image-wrapper" *ngIf="post?.images">
+      <ng-container *ngFor="let image of post?.images">
+        <img [src]="image.url">
+      </ng-container>
+    </div>
+  </div>
+  <div class="post-footer">
+    <div *ngIf="post?.vote" class="react-wrapper d-flex">
+      <nb-icon icon="heart" status="danger"></nb-icon> {{post?.vote}}
+    </div>
+    <div class="function-wrapper d-flex">
+      <button
+        class="text-center flex-grow-1"
+        *ngIf="[PostStatusTypeEnum.PENDING, PostStatusTypeEnum.DECLINE].includes(post?.status)"
+        (click)="open(post)"
+      >
+        Edit
+      </button>
+      <button
+        class="text-center flex-grow-1 danger"
+        (click)="deletePost(post?._id)"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
+<div class="wrapper d-flex">
+  <input [formControl]="form" nbInput fullWidth placeholder="Select date to date to see react" [nbDatepicker]="rangepicker">
+  <nb-rangepicker #rangepicker></nb-rangepicker>
+</div>
+<div class="wrapper">
+  <chart type="line" [data]="data" [options]="options"></chart>
+</div>

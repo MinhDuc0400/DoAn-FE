@@ -1,0 +1,16 @@
+<div class="navigator-wrapper d-flex flex-column">
+  <ng-container *ngFor="let nav of navigationArray">
+    <div
+      *ngIf="nav.visible"
+      class="navigator-item"
+      [routerLink]="nav.route"
+      routerLinkActive="navigator-item--selected"
+    >
+      {{nav.label}}
+    </div>
+  </ng-container>
+
+  <div class="navigator-item bottom-btn" (click)="logout()">
+    Logout
+  </div>
+</div>

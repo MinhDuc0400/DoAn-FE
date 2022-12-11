@@ -1,0 +1,22 @@
+.header {
+  height: 60px;
+}
+.dialog-wrapper {
+  border-radius: 20px;
+  padding: 16px;
+  background: #FFFFFF;
+}
+.body {
+  gap: 4px;
+}
+.footer {
+  margin-top: 8px;
+  button {
+    width: 100%;
+    border-radius: 8px;
+    background: #4E5D78;
+    color: #FFFFFF;
+    border: none;
+    padding: 12px 10px;
+  }
+}

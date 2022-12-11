@@ -9,9 +9,7 @@ import { UserTypeEnum } from '../enum/userType.enum';
 import { RegisterRequest, RegisterResponse } from '../interfaces/auth';
 import {
   URL_ADMIN_POST_MANAGEMENT,
-  URL_HOME,
   URL_LOGIN,
-  URL_POST_MANAGEMENT,
 } from '../constants/url.constant';
 import { UserService } from './user.service';
 @Injectable({
@@ -50,10 +48,10 @@ export class AuthenticationService {
           this.router.navigate([URL_ADMIN_POST_MANAGEMENT]);
           break;
         case UserTypeEnum.LANDLORD:
-          this.router.navigate([URL_POST_MANAGEMENT]);
+          this.router.navigate(['/dashboard/feed']);
           break;
         case UserTypeEnum.TENANT:
-          this.router.navigate([URL_HOME]);
+          this.router.navigate(['/dashboard/feed']);
           break;
       }
     });

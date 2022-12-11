@@ -1,0 +1,14 @@
+.router-wrapper {
+  flex: 1;
+  padding: 30px;
+  background: #F9FAFB;
+  border-radius: 20px;
+  margin-right: 20px;
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+:host ::ng-deep {
+  nb-layout {
+    height: 0;
+  }
+}

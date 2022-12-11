@@ -1,0 +1,84 @@
+<div class="dialog-wrapper">
+  <div class="header text-center">{{title}}</div>
+  <div class="body d-flex flex-column" [formGroup]="createForm">
+    <input
+      nbInput
+      fullWidth
+      placeholder="Title"
+      formControlName="title"
+      maxlength="60"
+    />
+    <textarea
+      rows="5"
+      nbInput
+      fullWidth
+      placeholder="Write something..."
+      formControlName="description"
+      maxlength="250"
+    ></textarea>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <input
+            nbInput
+            fullWidth
+            placeholder="Address"
+            formControlName="address"
+          />
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <nb-select
+            fullWidth
+            formControlName="provinceId"
+            placeholder="Province"
+            required
+          >
+            <nb-option *ngFor="let item of provinceArray" value="{{item.province_id}}">
+              {{item.province_name | titlecase}}
+            </nb-option>
+          </nb-select>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <nb-select
+            fullWidth
+            formControlName="districtId"
+            placeholder="District"
+            required
+          >
+            <nb-option *ngFor="let item of districtArray" value="{{item.district_id}}">
+              {{item.district_name | titlecase}}
+            </nb-option>
+          </nb-select>
+        </div>
+      </div>
+    </div>
+    <input
+      nbInput
+      fullWidth
+      type="number"
+      placeholder="Price"
+      formControlName="price"
+    />
+    <ng-container
+      *ngFor="let image of imageListToDisplay"
+    >
+      <img
+        *ngIf="image | safe: 'url' as imgSrc"
+        class="post-image"
+        [src]="imgSrc"
+        alt=""/>
+    </ng-container>
+    <input nbInput fullWidth type="file" accept="image/*" (change)="onImageFileSelect($event)"/>
+  </div>
+  <div class="footer">
+    <button
+      class="text-center"
+      fullWidth
+      [disabled]="createForm.invalid"
+      (click)="submit()">Create</button>
+  </div>
+</div>

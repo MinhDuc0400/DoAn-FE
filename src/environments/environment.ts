@@ -21,8 +21,8 @@ export const environment = {
   },
   cloudinaryURL: 'https://api.cloudinary.com/v1_1/dfeeo5kqn/image/upload',
   cloudinaryUploadPreset: 'lgtqjbkn',
-  serverURL: 'http://127.0.0.1:3001/api/v1', // local
-  socketURL: 'ws://127.0.0.1:3006/',
+  serverURL: 'http://127.0.0.1:3006/api/v1', // local
+  socketURL: 'ws://127.0.0.1:3001/',
   provinceURL: 'https://vapi.vnappmob.com/api/province',
   districtURL: 'https://vapi.vnappmob.com/api/province/district/',
   user: '/user',

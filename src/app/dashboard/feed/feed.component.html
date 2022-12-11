@@ -1,0 +1,56 @@
+<div class="create-post-wrapper d-flex align-items-center" *ngIf="userType === 'landlord'">
+  <div class="avatar d-flex align-items-center justify-content-center">
+    {{userService.getDisplayShortName(userService.currentUser.value?.firstName, userService.currentUser.value?.lastName)}}
+  </div>
+  <div class="dialog-wrapper text-center" (click)="openCreateDialog()">
+    What do you want to post, {{authService.user?.displayName}}?
+  </div>
+</div>
+<div class="feed-wrapper d-flex flex-column ">
+  <div
+    *ngFor="let post of postList"
+    class="post"
+  >
+    <div class="post-header d-flex">
+      <div class="avatar d-flex align-items-center justify-content-center">
+        {{userService.getDisplayShortName(post.user.firstName, post.user.lastName)}}
+      </div>
+      <div>
+        <div>{{userService.getDisplayName(post.user.firstName, post.user.lastName)}}</div>
+        <div class="small">{{post.createdAt | date: 'longDate'}}</div>
+      </div>
+    </div>
+    <div class="post-content">
+      <h3>{{post.title}}  {{post.price | currency}}</h3>
+      <div>At {{post.address}}-{{post.location?.provinceName}}-{{post.location?.districtName}}</div>
+      <div>{{post.description}}</div>
+      <div class="d-flex flex-wrap image-wrapper" *ngIf="post.images">
+        <ng-container *ngFor="let image of post.images">
+          <img [src]="image.url">
+        </ng-container>
+      </div>
+    </div>
+    <div class="post-footer">
+      <div *ngIf="post.vote" class="react-wrapper d-flex">
+        <nb-icon icon="heart" status="danger"></nb-icon> {{post.vote}}
+      </div>
+      <div class="function-wrapper d-flex" *ngIf="userType === 'tenant'">
+        <button
+          class="text-center"
+          [style.width.%]="48"
+          [ngClass]="{'interested': post.votedUsers?.includes(userService.currentUser.getValue()?._id)}"
+          (click)="interestPost(post)"
+        >
+          {{post.votedUsers?.includes(userService.currentUser.getValue()?._id) ? 'Interested' : 'Interest'}}
+        </button>
+        <button
+          class="text-center"
+          [style.width.%]="48"
+          (click)="chat(post)"
+        >
+          Chat
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+.navigator-wrapper {
+  height: calc(100vh - 80px);
+  width: 250px;
+  padding: 12px 20px;
+  position: relative;
+}
+.navigator-item {
+  padding: 12px 20px;
+  border-radius: 8px;
+  color: #4E5D78;
+  cursor: pointer;
+  &--selected {
+    background: #4E5D78;
+    color: #FFFFFF;
+  }
+}
+
+.bottom-btn {
+  position: absolute;
+  bottom: 12px;
+}
