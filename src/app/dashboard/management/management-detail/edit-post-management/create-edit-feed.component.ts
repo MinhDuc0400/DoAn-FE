@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ResultDistrict, ResultProvince } from '../../../common/interfaces/location';
-import { LocationService } from '../../../common/services/location.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { FileTypeEnum } from '../../../common/enum/fileType.enum';
 import { finalize, switchMap } from 'rxjs/operators';
-import { CreatePostRequest } from '../../../common/interfaces/post';
-import { PostService } from '../../../common/services/post.service';
+import { ResultDistrict, ResultProvince } from '../../../../common/interfaces/location';
+import { LocationService } from '../../../../common/services/location.service';
+import { PostService } from '../../../../common/services/post.service';
+import { CreatePostRequest, Post } from '../../../../common/interfaces/post';
+import { FileTypeEnum } from '../../../../common/enum/fileType.enum';
 
 @Component({
   selector: 'app-create-edit-feed',
@@ -15,7 +15,7 @@ import { PostService } from '../../../common/services/post.service';
   styleUrls: ['./create-edit-feed.component.scss']
 })
 export class CreateEditFeedComponent implements OnInit {
-  @Input() title: string;
+  @Input() post: Post;
   provinceArray: ResultProvince[] = [];
   districtArray: ResultDistrict[] = [];
   imageListToUpload: File[] = [];
@@ -33,13 +33,13 @@ export class CreateEditFeedComponent implements OnInit {
 
   ngOnInit() {
     this.createForm = new FormGroup({
-      title: new FormControl('', [Validators.required]),
-      description: new FormControl('', [Validators.required]),
-      price: new FormControl(0, [Validators.required]),
-      imageList: new FormControl([], [Validators.required]),
-      address: new FormControl('', [Validators.required]),
-      districtId: new FormControl('', [Validators.required]),
-      provinceId: new FormControl('', [Validators.required]),
+      title: new FormControl(this.post.title, [Validators.required]),
+      description: new FormControl(this.post.description, [Validators.required]),
+      price: new FormControl(this.post.price, [Validators.required]),
+      imageList: new FormControl(this.post.images, [Validators.required]),
+      address: new FormControl(this.post.address, [Validators.required]),
+      districtId: new FormControl(this.post.location.districtId, [Validators.required]),
+      provinceId: new FormControl(this.post.location.provinceId, [Validators.required]),
     });
 
     this.locationService.getListProvinces('https://vapi.vnappmob.com/api/province').subscribe(res => {
@@ -135,7 +135,7 @@ export class CreateEditFeedComponent implements OnInit {
       provinceId: this.provinceId.value,
       provinceName: this.provinceArray.find(el => el.province_id === this.provinceId.value).province_name,
     };
-      this.postService.createPost(body).subscribe(() => {
+      this.postService.editPost(body, this.post._id).subscribe(() => {
       });
 
   }

@@ -4,10 +4,10 @@ import { FormControl } from '@angular/forms';
 import { UserService } from '../../../common/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from '../../../common/services/post.service';
-import { NbColorHelper, NbDialogService, NbThemeService, NbToastrService } from '@nebular/theme';
+import { NbDialogService, NbThemeService, NbToastrService } from '@nebular/theme';
 import * as dayjs from 'dayjs';
-import { CreateEditPostComponent } from '../../../pages/post-list/create-edit-post/create-edit-post.component';
 import { PostStatusTypeEnum } from '../../../common/enum/postStatusType.enum';
+import { CreateEditFeedComponent } from './edit-post-management/create-edit-feed.component';
 @Component({
   selector: 'management-detail',
   templateUrl: './management-detail.component.html',
@@ -77,9 +77,8 @@ export class ManagementDetailComponent implements OnInit {
   }
 
   open(post: Post) {
-    this.dialogService.open(CreateEditPostComponent, {
+    this.dialogService.open(CreateEditFeedComponent, {
       context: {
-        title: 'Edit Post',
         post: post,
       },
     }).onClose.subscribe(() => {

@@ -5,15 +5,18 @@ import { ManagementRoutingModule } from './management-routing.module';
 import { ManagementComponent } from './management.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ManagementDetailComponent } from './management-detail/management-detail.component';
-import { NbDatepickerModule, NbIconModule, NbInputModule } from '@nebular/theme';
+import { NbDatepickerModule, NbIconModule, NbInputModule, NbSelectModule } from '@nebular/theme';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ChartModule } from 'angular2-chartjs';
+import { CreateEditFeedComponent } from './management-detail/edit-post-management/create-edit-feed.component';
+import { ThemeModule } from '../../@theme/theme.module';
 
 
 @NgModule({
   declarations: [
     ManagementComponent,
-    ManagementDetailComponent
+    ManagementDetailComponent,
+    CreateEditFeedComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +26,9 @@ import { ChartModule } from 'angular2-chartjs';
     ReactiveFormsModule,
     NbInputModule,
     NbDatepickerModule,
-    ChartModule
+    ChartModule,
+    NbSelectModule,
+    ThemeModule
   ]
 })
 export class ManagementModule { }

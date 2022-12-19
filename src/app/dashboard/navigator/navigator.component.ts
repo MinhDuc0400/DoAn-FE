@@ -12,7 +12,7 @@ import { UserService } from '../../common/services/user.service';
 })
 export class NavigatorComponent {
 
-  userType = this.userService.currentUser.value.userType;
+  userType = localStorage.getItem('userType');
   navigationArray = [
     {
       label: 'Feed',
@@ -41,6 +41,11 @@ export class NavigatorComponent {
     private authService: AuthenticationService,
     private userService: UserService,
   ) {
+    this.userService.currentUser.subscribe(res => {
+      if (res) {
+        this.userType = localStorage.getItem('userType');
+      }
+    });
   }
 
   logout() {

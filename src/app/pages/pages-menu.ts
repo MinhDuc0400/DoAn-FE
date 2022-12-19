@@ -28,11 +28,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     hidden: localStorage.getItem('userType') !== 'admin',
     children: [
       {
-        title: 'Account Management',
-        icon: 'person-outline',
-        link: '/pages/admin/account-management',
-      },
-      {
         title: 'Post Management',
         icon: 'browser-outline',
         link: '/pages/admin/post-management',
