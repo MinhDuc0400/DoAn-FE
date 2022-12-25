@@ -37,7 +37,7 @@ export class ExploreDetailComponent implements OnInit {
           datasets: [{
             data: res.map(el => el.count),
             label: 'Frequency',
-            backgroundColor: '#4E5D78',
+            backgroundColor: '#1876F2',
           }],
         };
       });

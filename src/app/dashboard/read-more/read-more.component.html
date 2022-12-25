@@ -1,0 +1,3 @@
+{{ content }}
+<span *ngIf="!isContentToggled" (click)="toggleContent()">Read More</span>
+<span *ngIf="isContentToggled" (click)="toggleContent()">Read Less</span>

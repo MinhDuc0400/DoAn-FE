@@ -11,6 +11,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { LocationService } from '../../common/services/location.service';
 import { ResultDistrict, ResultProvince } from '../../common/interfaces/location';
 import { debounceTime, switchMap } from 'rxjs/operators';
+import { SwiperOptions } from 'swiper';
 
 @Component({
   selector: 'app-feed',
@@ -23,6 +24,14 @@ export class FeedComponent implements OnInit {
   districtArray: ResultDistrict[] = [];
   userType = localStorage.getItem('userType');
   filterForm: FormGroup;
+
+  config: SwiperOptions = {
+    slidesPerView: 1,
+    spaceBetween: 50,
+    navigation: true,
+    pagination: { clickable: true },
+  };
+
   constructor(
     private dialogService: NbDialogService,
     private postService: PostService,

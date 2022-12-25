@@ -59,7 +59,7 @@ export class ManagementDetailComponent implements OnInit {
               datasets: [{
                 data: vote.map(el => el.votes),
                 label: 'Like Chart',
-                backgroundColor: '#4E5D78',
+                backgroundColor: '#1876F2',
               },
               ],
             };

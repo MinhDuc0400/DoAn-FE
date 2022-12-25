@@ -1,0 +1,11 @@
+:host {
+  white-space: pre-line;
+  span {
+    cursor: pointer;
+    color: #1876F2;
+    &:hover {
+      text-decoration: underline;
+      text-decoration-color: #1876F2;
+    }
+  }
+}

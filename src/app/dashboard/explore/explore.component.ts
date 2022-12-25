@@ -64,7 +64,7 @@ export class ExploreComponent implements OnInit {
           datasets: [{
             data: provinceIds.map(el => res[el].price),
             label: 'Average Price',
-            backgroundColor: '#4E5D78',
+            backgroundColor: '#1876F2',
           }],
         };
 

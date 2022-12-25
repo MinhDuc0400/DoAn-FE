@@ -7,11 +7,14 @@ import { CreateEditFeedComponent } from './create-edit-feed/create-edit-feed.com
 import { ReactiveFormsModule } from '@angular/forms';
 import { ThemeModule } from '../../@theme/theme.module';
 import { NbButtonModule, NbIconModule, NbInputModule, NbLayoutModule, NbSelectModule } from '@nebular/theme';
+import { ReadMoreComponent } from '../read-more/read-more.component';
+import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   declarations: [
     FeedComponent,
     CreateEditFeedComponent,
+    ReadMoreComponent,
   ],
   imports: [
     CommonModule,
@@ -23,6 +26,7 @@ import { NbButtonModule, NbIconModule, NbInputModule, NbLayoutModule, NbSelectMo
     NbButtonModule,
     NbSelectModule,
     NbLayoutModule,
+    SwiperModule,
   ],
 })
 export class FeedModule { }
