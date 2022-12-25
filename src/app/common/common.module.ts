@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
-import { SweetAlert } from './services/sweet-alert.service';
-import { NbToastrModule } from '@nebular/theme';
+import { ReadMoreComponent } from '../dashboard/read-more/read-more.component';
 
 
 @NgModule({
-  declarations: [],
-  providers: [
-    SweetAlert,
+  declarations: [ReadMoreComponent],
+  imports: [],
+  exports: [
+    ReadMoreComponent,
   ],
-  imports: [NbToastrModule],
 })
-export class CommonModule { }
+export class ShareModule { }

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { FeedRoutingModule } from './feed-routing.module';
 import { FeedComponent } from './feed.component';
 import { CreateEditFeedComponent } from './create-edit-feed/create-edit-feed.component';
@@ -12,16 +11,15 @@ import {
   NbIconModule,
   NbInputModule,
   NbLayoutModule, NbProgressBarModule,
-  NbSelectModule
+  NbSelectModule,
 } from '@nebular/theme';
-import { ReadMoreComponent } from '../read-more/read-more.component';
 import { SwiperModule } from 'swiper/angular';
+import { ShareModule } from '../../common/common.module';
 
 @NgModule({
   declarations: [
     FeedComponent,
     CreateEditFeedComponent,
-    ReadMoreComponent,
   ],
   imports: [
     CommonModule,
@@ -36,6 +34,7 @@ import { SwiperModule } from 'swiper/angular';
     SwiperModule,
     NbCardModule,
     NbProgressBarModule,
+    ShareModule,
   ],
 })
 export class FeedModule { }

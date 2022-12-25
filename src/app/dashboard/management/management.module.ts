@@ -10,13 +10,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ChartModule } from 'angular2-chartjs';
 import { CreateEditFeedComponent } from './management-detail/edit-post-management/create-edit-feed.component';
 import { ThemeModule } from '../../@theme/theme.module';
+import { SwiperModule } from 'swiper/angular';
+import { ShareModule } from '../../common/common.module';
 
 
 @NgModule({
   declarations: [
     ManagementComponent,
     ManagementDetailComponent,
-    CreateEditFeedComponent
+    CreateEditFeedComponent,
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,9 @@ import { ThemeModule } from '../../@theme/theme.module';
     NbDatepickerModule,
     ChartModule,
     NbSelectModule,
-    ThemeModule
-  ]
+    ThemeModule,
+    ShareModule,
+    SwiperModule,
+  ],
 })
 export class ManagementModule { }

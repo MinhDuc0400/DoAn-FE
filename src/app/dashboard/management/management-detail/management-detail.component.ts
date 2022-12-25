@@ -8,6 +8,7 @@ import { NbDialogService, NbThemeService, NbToastrService } from '@nebular/theme
 import * as dayjs from 'dayjs';
 import { PostStatusTypeEnum } from '../../../common/enum/postStatusType.enum';
 import { CreateEditFeedComponent } from './edit-post-management/create-edit-feed.component';
+import { SwiperOptions } from 'swiper';
 @Component({
   selector: 'management-detail',
   templateUrl: './management-detail.component.html',
@@ -22,7 +23,12 @@ export class ManagementDetailComponent implements OnInit {
   form: FormControl;
   data: any;
   options: any;
-
+  config: SwiperOptions = {
+    slidesPerView: 1,
+    spaceBetween: 50,
+    navigation: true,
+    pagination: { clickable: true },
+  };
   colors: any;
   chartjs: any;
   constructor(
