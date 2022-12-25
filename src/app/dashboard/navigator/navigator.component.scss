@@ -3,15 +3,20 @@
   width: 250px;
   padding: 12px 20px;
   position: relative;
+  gap: 4px;
 }
 .navigator-item {
+  gap: 8px;
   padding: 12px 20px;
   border-radius: 8px;
   color: #1876F2;
   cursor: pointer;
   &--selected {
-    background: #1876F2;
+    background: #1876F2 !important;
     color: #FFFFFF;
+  }
+  &:hover {
+    background: #F0F2F5;
   }
 }
 

@@ -6,7 +6,14 @@ import { FeedComponent } from './feed.component';
 import { CreateEditFeedComponent } from './create-edit-feed/create-edit-feed.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ThemeModule } from '../../@theme/theme.module';
-import { NbButtonModule, NbIconModule, NbInputModule, NbLayoutModule, NbSelectModule } from '@nebular/theme';
+import {
+  NbButtonModule,
+  NbCardModule,
+  NbIconModule,
+  NbInputModule,
+  NbLayoutModule, NbProgressBarModule,
+  NbSelectModule
+} from '@nebular/theme';
 import { ReadMoreComponent } from '../read-more/read-more.component';
 import { SwiperModule } from 'swiper/angular';
 
@@ -27,6 +34,8 @@ import { SwiperModule } from 'swiper/angular';
     NbSelectModule,
     NbLayoutModule,
     SwiperModule,
+    NbCardModule,
+    NbProgressBarModule,
   ],
 })
 export class FeedModule { }

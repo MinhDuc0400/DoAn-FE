@@ -3,6 +3,9 @@
   <img height="100%" src="/assets/images/img.png"/>
   <div class="user d-flex align-items-center">
     <div>{{user?.displayName}}</div>
-    <div class="avatar d-flex align-items-center justify-content-center">{{userServce.getDisplayShortName(user?.displayName, '')}}</div>
+    <div class="avatar d-flex align-items-center justify-content-center">
+      {{userServce.getDisplayShortName(user?.displayName, '')}}
+    </div>
+    <nb-icon icon="power-outline" status="primary" (click)="logout()"></nb-icon>
   </div>
 </div>

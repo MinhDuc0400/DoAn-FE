@@ -1,4 +1,4 @@
-<div style="padding: 0 25%">
+<div style="width: calc(100% - 400px)">
   <div class="create-post-wrapper d-flex align-items-center" *ngIf="userType === 'landlord'">
     <div class="avatar d-flex align-items-center justify-content-center">
       {{userService.getDisplayShortName(userService.currentUser.value?.firstName, userService.currentUser.value?.lastName)}}
@@ -66,7 +66,7 @@
         </div>
       </div>
       <div class="post-content">
-        <h3>{{post.title}}  {{post.price | currency}}</h3>
+        <h4>{{post.title}}  {{post.price | currency}}</h4>
         <div>At {{post.address}}-{{post.location?.provinceName}}-{{post.location?.districtName}}</div>
         <ngx-read-more
           [content]="post.description"
@@ -74,6 +74,7 @@
           [completeWords]="true"
         ></ngx-read-more>
         <swiper
+          style="margin-top: 20px"
           [config]="config"
         >
           <ng-template swiperSlide *ngFor="let image of post.images">
@@ -107,3 +108,31 @@
   </div>
 
 </div>
+<div class="suggestion" *ngIf="userType === 'tenant'">
+  <h6 class="suggestion-header">You might like</h6>
+  <div class="suggestion-body">
+    <div
+      class="suggestion-body-post"
+      *ngFor="let post of suggestionArray"
+    >
+      <div class="title">{{post.title}}</div>
+      <div class="address">{{post.address}}</div>
+      <div class="photos">
+        <img *ngFor="let photo of post.photos" style="border-radius: 8px" width="100%" src="{{photo.src}}">
+      </div>
+      <div class="d-flex align-items-center" style="gap: 4px">{{post.likes}} <nb-icon icon="heart" status="danger"></nb-icon> </div>
+    </div>
+  </div>
+</div>
+
+<div class="suggestion" *ngIf="userType === 'landlord'">
+  <div class="progress-info" *ngFor="let item of progressInfoData">
+    <div class="subtitle">{{ item.title }}</div>
+    <div class="h3">{{ item.value | ngxNumberWithCommas }}</div>
+    <nb-progress-bar [value]="item.activeProgress" [status]="'primary'"></nb-progress-bar>
+    <div class="caption description">
+      <bdi>{{ item.description }}</bdi>
+    </div>
+  </div>
+</div>
+

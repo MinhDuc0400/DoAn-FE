@@ -12,6 +12,7 @@ import { LocationService } from '../../common/services/location.service';
 import { ResultDistrict, ResultProvince } from '../../common/interfaces/location';
 import { debounceTime, switchMap } from 'rxjs/operators';
 import { SwiperOptions } from 'swiper';
+import { ProgressInfo, StatsProgressBarData } from '../../@core/data/stats-progress-bar';
 
 @Component({
   selector: 'app-feed',
@@ -25,12 +26,36 @@ export class FeedComponent implements OnInit {
   userType = localStorage.getItem('userType');
   filterForm: FormGroup;
 
+  suggestionArray = [
+    {
+      title: 'CĂN SHOPHOUSE LK13-01 DỰ ÁN AN LẠC GREEN SYMPHONY, CHÍNH CHỦ',
+      address: 'Hoài Đức, Hà Nội',
+      photos: [
+        {
+          src: '/assets/images/20221126104429-21c2_wm.jpg'
+        },
+      ],
+      likes: 4,
+    },
+    {
+      title: 'NHÀ Ô TÔ ĐỖ CỬA 3 TẦNG MỚI XÂY GIÁ 1,5 TỶ',
+      address: 'Hà Đông, Hà Nội',
+      photos: [
+        {
+          src: '/assets/images/20221223161855-d3ec_wm.jpg'
+        },
+      ],
+      likes: 2,
+    },
+  ];
+
   config: SwiperOptions = {
     slidesPerView: 1,
     spaceBetween: 50,
     navigation: true,
     pagination: { clickable: true },
   };
+  progressInfoData: ProgressInfo[];
 
   constructor(
     private dialogService: NbDialogService,
@@ -40,10 +65,15 @@ export class FeedComponent implements OnInit {
     private conversationService: ConversationService,
     public authService: AuthenticationService,
     private locationService: LocationService,
-
+    private statsProgressBarService: StatsProgressBarData,
 
   ) {}
   ngOnInit() {
+    this.statsProgressBarService.getProgressInfoData()
+      .subscribe((data) => {
+        this.progressInfoData = data;
+      });
+
     this.locationService.getListProvinces('https://vapi.vnappmob.com/api/province').subscribe(res => {
       this.provinceArray = res.results;
     });

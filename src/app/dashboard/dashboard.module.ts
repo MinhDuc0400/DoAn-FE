@@ -6,7 +6,7 @@ import { HeaderComponent } from './header/header.component';
 import { NavigatorComponent } from './navigator/navigator.component';
 import { DashboardComponent } from './dashboard.component';
 import { ThemeModule } from '../@theme/theme.module';
-import { NbInputModule, NbLayoutModule, NbThemeModule } from '@nebular/theme';
+import { NbIconModule, NbInputModule, NbLayoutModule, NbThemeModule } from '@nebular/theme';
 
 @NgModule({
   declarations: [
@@ -21,6 +21,7 @@ import { NbInputModule, NbLayoutModule, NbThemeModule } from '@nebular/theme';
     NbThemeModule,
     NbInputModule,
     NbLayoutModule,
+    NbIconModule,
   ],
 })
 export class DashboardModule { }

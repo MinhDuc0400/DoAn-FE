@@ -7,21 +7,21 @@ export class StatsProgressBarService extends StatsProgressBarData {
   private progressInfoData: ProgressInfo[] = [
     {
       title: 'Today’s Profit',
-      value: 572900,
+      value: 1572900,
       activeProgress: 70,
       description: 'Better than last week (70%)',
     },
     {
-      title: 'New Orders',
-      value: 6378,
+      title: 'New Posts',
+      value: 3,
       activeProgress: 30,
-      description: 'Better than last week (30%)',
+      description: 'Lower than last week (30%)',
     },
     {
-      title: 'New Comments',
-      value: 200,
-      activeProgress: 55,
-      description: 'Better than last week (55%)',
+      title: 'New Interests',
+      value: 15,
+      activeProgress: 40,
+      description: 'Better than last week (40%)',
     },
   ];
 

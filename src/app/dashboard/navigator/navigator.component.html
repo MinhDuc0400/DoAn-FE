@@ -2,15 +2,12 @@
   <ng-container *ngFor="let nav of navigationArray">
     <div
       *ngIf="nav.visible"
-      class="navigator-item"
+      class="navigator-item d-flex align-items-center"
       [routerLink]="nav.route"
       routerLinkActive="navigator-item--selected"
     >
-      {{nav.label}}
+      <nb-icon icon="{{nav.icon}}" status="{{router.isActive('dashboard/' + nav.route,  false) ? 'control' : 'primary'}}"></nb-icon>
+      <div>{{nav.label}}</div>
     </div>
   </ng-container>
-
-  <div class="navigator-item bottom-btn" (click)="logout()">
-    Logout
-  </div>
 </div>
