@@ -56,6 +56,25 @@ export class MessageComponent implements OnInit, OnDestroy {
               });
           }
         });
+      } else {
+        this.userService.currentUser.subscribe(res => {
+          if (res) {
+            this.conversationService.getConversationList(res._id)
+              .subscribe(list => {
+                this.conversationList = list.map(conv => {
+                  conv.users = conv.users.filter(user => user._id !== this.userService.currentUser.getValue()._id);
+                  return conv;
+                });
+
+                if (!this.conversationId) {
+                  this.conversationId = this.conversationList[0]._id;
+                  this.openConversation(this.conversationId);
+                } else {
+                  this.getHistory(this.conversationId);
+                }
+              });
+          }
+        });
       }
     });
 
