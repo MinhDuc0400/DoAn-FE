@@ -84,7 +84,7 @@ export class FeedComponent implements OnInit {
       provinceId: new FormControl(''),
       districtId: new FormControl(''),
     });
-    this.postService.getAllPosts().subscribe(res => {
+    this.postService.getVerifiedPosts().subscribe(res => {
       this.postList = res;
     });
 
@@ -167,8 +167,8 @@ export class FeedComponent implements OnInit {
   chat(post: Post) {
     const {_id, title, description} = post;
     this.conversationService.createConversation(_id, title, description).subscribe(
-      () => {
-        this.router.navigate(['/dashboard/message']);
+      (res: any) => {
+        res && this.router.navigate([`/dashboard/message/${res._id}`]);
       },
       () => {
 

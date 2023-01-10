@@ -5,12 +5,17 @@
   </nb-card-header>
   <nb-card-body>
     <h4>{{post?.title}}</h4>
-    <p>{{post?.description}}</p>
-    <div class="d-flex flex-wrap" *ngIf="post?.images">
-      <ng-container *ngFor="let image of post?.images">
-        <img width="50%" height="50%" [src]="image.url">
-      </ng-container>
-    </div>
+    <div
+      style="white-space: pre-line;"
+    >{{post?.description}}</div>
+    <swiper
+      style="margin-top: 20px"
+      [config]="config"
+    >
+      <ng-template swiperSlide *ngFor="let image of post.images">
+        <img [src]="image.url">
+      </ng-template>
+    </swiper>
   </nb-card-body>
   <nb-card-footer class="d-flex">
     <button

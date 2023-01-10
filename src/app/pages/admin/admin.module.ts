@@ -8,6 +8,7 @@ import { AccountManagementComponent } from './account-management/account-managem
 import { NbButtonModule, NbCardModule, NbUserModule } from '@nebular/theme';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { PostDetailComponent } from './post-detail/post-detail.component';
+import { SwiperModule } from 'swiper/angular';
 
 
 
@@ -22,6 +23,7 @@ import { PostDetailComponent } from './post-detail/post-detail.component';
     Ng2SmartTableModule,
     NbUserModule,
     NbButtonModule,
+    SwiperModule,
   ],
 })
 export class AdminModule { }

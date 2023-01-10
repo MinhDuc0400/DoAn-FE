@@ -4,6 +4,8 @@ import { environment } from '../../../environments/environment';
 import { NbToastrService } from '@nebular/theme';
 import { catchError, pluck, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { Router } from '@angular/router';
+import { URL_LOGIN } from '../constants/url.constant';
 
 
 @Injectable({
@@ -14,6 +16,7 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     private toastService: NbToastrService,
+    private router: Router
   ) {}
 
   private getHeaders() {
@@ -37,6 +40,11 @@ export class ApiService {
     })
       .pipe(
         catchError(err => {
+          console.log(err.error.status)
+          if (err.error.status === 401) {
+            this.router.navigate([URL_LOGIN]);
+            return;
+          }
           this.toastService.danger(err.error.message, 'ERROR');
           return of(err);
         }),
@@ -51,6 +59,12 @@ export class ApiService {
         tap(el => console.log(el)),
         pluck('data'),
         catchError(err => {
+          console.log(err.error)
+
+          if (err.error.statusCode === 401) {
+            this.router.navigate([URL_LOGIN]);
+            return;
+          }
           this.toastService.danger(err.error.message, 'ERROR');
           return of(err);
         }),
@@ -67,6 +81,12 @@ export class ApiService {
         pluck('body'),
         pluck('data'),
         catchError(err => {
+          console.log(err.error.statusCode)
+
+          if (err.error.statusCode === 401) {
+            this.router.navigate([URL_LOGIN]);
+            return;
+          }
           this.toastService.danger(err.error.message, 'ERROR');
           return of(err);
         }),
@@ -79,6 +99,12 @@ export class ApiService {
     })
       .pipe(
         catchError(err => {
+          console.log(err.error.statusCode)
+
+          if (err.error.statusCode === 401) {
+            this.router.navigate([URL_LOGIN]);
+            return;
+          }
           this.toastService.danger(err.error.message, 'ERROR');
           return of(err);
         }),
@@ -91,6 +117,10 @@ export class ApiService {
     })
       .pipe(
         catchError(err => {
+          if (err.error.statusCode === 401) {
+            this.router.navigate([URL_LOGIN]);
+            return;
+          }
           this.toastService.danger(err.error.message, 'ERROR');
           return of(err);
         }),

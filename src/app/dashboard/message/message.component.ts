@@ -29,28 +29,33 @@ export class MessageComponent implements OnInit, OnDestroy {
     public userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.messageForm = new FormControl('', Validators.required);
     this.handleSocket();
-    this.conversationId = this.route.snapshot.params.conversationId;
-    this.userService.currentUser.subscribe(res => {
-      if (res) {
-        this.conversationService.getConversationList(res._id)
-          .subscribe(list => {
-            this.conversationList = list.map(conv => {
-              conv.users = conv.users.filter(user => user._id !== this.userService.currentUser.getValue()._id);
-              return conv;
-            });
+    this.route.paramMap.subscribe(param => {
+      if (param && param.get('id')) {
+        this.conversationId = param.get('id');
+        this.userService.currentUser.subscribe(res => {
+          if (res) {
+            this.conversationService.getConversationList(res._id)
+              .subscribe(list => {
+                this.conversationList = list.map(conv => {
+                  conv.users = conv.users.filter(user => user._id !== this.userService.currentUser.getValue()._id);
+                  return conv;
+                });
 
-            if (!this.conversationId) {
-              this.conversationId = this.conversationList[0]._id;
-              this.openConversation(this.conversationId);
-            } else {
-              this.getHistory(this.conversationId);
-            }
-          });
+                if (!this.conversationId) {
+                  this.conversationId = this.conversationList[0]._id;
+                  this.openConversation(this.conversationId);
+                } else {
+                  this.getHistory(this.conversationId);
+                }
+              });
+          }
+        });
       }
     });
 

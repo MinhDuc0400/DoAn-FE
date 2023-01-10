@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PostService } from '../../../common/services/post.service';
 import { PostStatusTypeEnum } from '../../../common/enum/postStatusType.enum';
 import { AdminService } from '../../../common/services/admin.service';
+import { SwiperOptions } from 'swiper';
 
 @Component({
   selector: 'ngx-post-detail',
@@ -15,7 +16,12 @@ export class PostDetailComponent implements OnInit {
   PostStatusTypeEnum = PostStatusTypeEnum;
   post: Post;
   private postId: string;
-
+  config: SwiperOptions = {
+    slidesPerView: 1,
+    spaceBetween: 50,
+    navigation: true,
+    pagination: { clickable: true },
+  };
   constructor(
     public userService: UserService,
     private route: ActivatedRoute,

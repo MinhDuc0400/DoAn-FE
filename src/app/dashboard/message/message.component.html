@@ -34,7 +34,7 @@
           {{userService.getDisplayShortName(message.user?.firstName, message.user?.lastName)}}
         </div>
         <div
-          class="message-content text-left"
+          class="message-content text-left text-break"
           [ngClass]="{'text-right from-current-user': message.userId === userService.currentUser.getValue()._id}"
         >{{message.message}}</div>
       </div>

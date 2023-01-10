@@ -43,6 +43,10 @@ export class PostService {
     return this.apiService.getAPI<Post[]>(this.url + environment.landlord + '/all');
   }
 
+  getVerifiedPosts() {
+    return this.apiService.getAPI<Post[]>(this.url + environment.tenant);
+  }
+
   getPostDetail(id: string) {
     return this.apiService.getAPI<Post>(this.url + environment.common + `/${id}`);
   }
